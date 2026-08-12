@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petunjuk Teknis Simulasi TKA 2026</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+
+  :root{
+    --navy: #10213f;
+    --navy-2: #16305a;
+    --gold: #c9a227;
+    --gold-light: #e8c766;
+    --cream: #f7f3e8;
+    --paper: #fbf9f3;
+    --ink: #1c2333;
+    --red: #a8291f;
+    --red-light: #f4dedb;
+    --line: rgba(16,33,63,0.14);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  body{
+    background: linear-gradient(180deg, #0c1830 0%, #10213f 100%);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    display:block;
+    padding: 40px 16px;
+  }
+
+  .page-wrap{
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .poster{
+    width: 100%;
+    max-width: 760px;
+    background: var(--paper);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.45);
+    position: relative;
+  }
+
+  /* ===== HEADER ===== */
+  .header{
+    background:
+      radial-gradient(1200px 300px at 100% -20%, rgba(201,162,39,0.25), transparent 60%),
+      linear-gradient(155deg, var(--navy) 0%, var(--navy-2) 60%, var(--navy) 100%);
+    color: var(--cream);
+    padding: 40px 36px 34px;
+    position: relative;
+    border-bottom: 6px solid var(--gold);
+  }
+  .header::after{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(115deg, transparent 0 38px, rgba(232,199,102,0.05) 38px 39px);
+    pointer-events:none;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .title{
+    font-family:'Fraunces', serif;
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+  }
+  .title em{
+    font-style: normal;
+    color: var(--gold-light);
+  }
+  .subtitle{
+    margin-top: 10px;
+    font-size: 14.5px;
+    color: rgba(247,243,232,0.72);
+    line-height: 1.5;
+    max-width: 46ch;
+  }
+
+  /* ===== SECTION LABEL ===== */
+  .section{
+    padding: 32px 36px;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-label{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 700;
+    margin-bottom: 18px;
+  }
+  .section-label::before{
+    content:"";
+    width: 18px; height: 2px;
+    background: var(--gold);
+  }
+
+  /* ===== RULES LIST ===== */
+  .rules{
+    display: grid;
+    gap: 14px;
+  }
+  .rule{
+    display:flex;
+    gap: 14px;
+    align-items:flex-start;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--red);
+    border-radius: 3px;
+    padding: 14px 16px;
+  }
+  .rule .ico{
+    flex-shrink:0;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    background: var(--red-light);
+    color: var(--red);
+    display:flex; align-items:center; justify-content:center;
+    font-size: 15px;
+    font-weight: 800;
+  }
+  .rule .txt strong{
+    display:block;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .rule .txt span{
+    font-size: 13px;
+    color: #55607a;
+    line-height: 1.45;
+  }
+
+  /* ===== WARNING ESCALATION ===== */
+  .escalation-intro{
+    font-size: 13.5px;
+    color: #55607a;
+    margin-bottom: 22px;
+    line-height: 1.55;
+  }
+  .stairs{
+    position: relative;
+    padding-left: 6px;
+  }
+  .stairs::before{
+    content:"";
+    position:absolute;
+    left: 23px; top: 22px; bottom: 22px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold) 0%, var(--red) 100%);
+  }
+  .step{
+    position:relative;
+    display:flex;
+    gap: 18px;
+    padding: 0 0 26px;
+  }
+  .step:last-child{ padding-bottom:0; }
+  .step .num{
+    position:relative;
+    z-index:1;
+    flex-shrink:0;
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces', serif;
+    font-weight: 800;
+    font-size: 19px;
+    color: #fff;
+    border: 3px solid var(--paper);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+  .step:nth-child(1) .num{ background: #c9932a; }
+  .step:nth-child(2) .num{ background: #b5651f; }
+  .step:nth-child(3) .num{ background: var(--red); }
+
+  .step .card{
+    flex:1;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .step:nth-child(3) .card{
+    background: var(--red-light);
+    border-color: rgba(168,41,31,0.35);
+  }
+  .step .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 4px;
+    display:block;
+  }
+  .step:nth-child(2) .tag{ color: #b5651f; }
+  .step:nth-child(3) .tag{ color: var(--red); }
+  .step .card h4{
+    font-size: 15.5px;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .step .card p{
+    font-size: 13px;
+    color: #55607a;
+    line-height: 1.5;
+  }
+  .lock-note{
+    margin-top: 6px;
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    background: var(--navy);
+    color: var(--cream);
+    border-radius: 4px;
+    padding: 12px 14px;
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+  .lock-note .lico{
+    flex-shrink:0;
+    font-size: 16px;
+    color: var(--gold-light);
+  }
+  .lock-note b{ color: var(--gold-light); }
+  .lock-note.panitia{
+    background: var(--gold-light);
+    color: var(--navy);
+    margin-top: 8px;
+    border: 1px solid rgba(16,33,63,0.15);
+  }
+  .lock-note.panitia .lico{ color: var(--navy); }
+  .lock-note.panitia b{ color: var(--navy); }
+  .lock-note.panitia code{
+    font-family:'JetBrains Mono', monospace;
+    font-weight: 700;
+    background: rgba(16,33,63,0.1);
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ===== MAPEL GRID ===== */
+  .mapel-grid{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .mapel-group{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 16px;
+  }
+  .mapel-tag{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  .mapel-tag.wajib{ background: rgba(16,33,63,0.08); color: var(--navy); }
+  .mapel-tag.pilihan{ background: rgba(201,162,39,0.16); color: #8a6c17; }
+  .mapel-item{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    padding: 9px 0;
+    border-top: 1px solid var(--line);
+  }
+  .mapel-item:first-of-type{ border-top: none; }
+  .mapel-item .mnum{
+    flex-shrink:0;
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: var(--cream);
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .mapel-item .mname{
+    flex:1;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--navy);
+  }
+  .mapel-item .mmeta{
+    font-size: 11px;
+    color: #8a93a8;
+    font-family:'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+  .total-bar{
+    margin-top: 14px;
+    display:flex;
+    justify-content: space-between;
+    align-items:center;
+    background: var(--navy);
+    color: var(--cream);
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-size: 12.5px;
+  }
+  .total-bar strong{
+    font-family:'JetBrains Mono', monospace;
+    color: var(--gold-light);
+    font-size: 13px;
+  }
+
+  @media (max-width: 480px){
+    .mapel-grid{ grid-template-columns: 1fr; }
+  }
+
+  /* ===== PILIHAN CHIPS ===== */
+  .pilihan-groups{
+    display: grid;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .pilihan-cat{
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 12px 14px;
+  }
+  .cat-label{
+    display:block;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #8a93a8;
+    margin-bottom: 9px;
+  }
+  .chips{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+  .chip{
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--navy);
+    background: rgba(16,33,63,0.055);
+    border: 1px solid rgba(16,33,63,0.1);
+    padding: 5px 11px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  /* ===== ACCESS ===== */
+  .access{
+    background: var(--navy);
+    padding: 32px 36px 36px;
+    color: var(--cream);
+  }
+  .access .section-label{ color: var(--gold-light); }
+  .access .section-label::before{ background: var(--gold-light); }
+  .link-box{
+    background: rgba(255,255,255,0.06);
+    border: 1px dashed rgba(232,199,102,0.5);
+    border-radius: 6px;
+    padding: 18px 20px;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .link-box .url{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--gold-light);
+    letter-spacing: 0.01em;
+  }
+  .link-box .hint{
+    font-size: 12px;
+    color: rgba(247,243,232,0.6);
+    margin-top: 4px;
+  }
+  .go-badge{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--navy);
+    background: var(--gold-light);
+    padding: 8px 14px;
+    border-radius: 100px;
+  }
+
+  .footer{
+    text-align:center;
+    font-size: 11.5px;
+    color: rgba(247,243,232,0.45);
+    margin-top: 26px;
+    letter-spacing: 0.03em;
+  }
+  .footer b{ color: rgba(232,199,102,0.85); }
+
+  /* ===== CEK PESERTA SECTION ===== */
+  .cek-peserta{
+    background: var(--paper);
+    padding: 40px 0 10px;
+    margin-top: 20px;
+    border-radius: 4px;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.45);
+  }
+  .cek-hero{
+    padding: 8px 36px 26px;
+    text-align:center;
+  }
+  .cek-eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--navy); font-weight: 700;
+  }
+  .cek-eyebrow::before, .cek-eyebrow::after{ content:""; width:16px; height:1px; background: var(--gold); }
+  .cek-hero h2{
+    font-family:'Fraunces', serif; font-weight:800; font-size:24px; color: var(--navy);
+    margin: 10px 0 6px;
+  }
+  .cek-hero p{ font-size: 13px; color:#55607a; max-width: 46ch; margin: 0 auto; line-height:1.5; }
+
+  .search-wrap{ padding: 0 36px; margin-bottom: 4px; }
+  .search-box{
+    max-width: 560px; margin: 0 auto;
+    background:#fff; border-radius:14px;
+    box-shadow:0 10px 30px -12px rgba(16,33,63,0.25), 0 1px 0 rgba(16,33,63,0.04);
+    padding:6px 6px 6px 16px;
+    display:flex; align-items:center; gap:10px;
+    border:1px solid var(--line);
+  }
+  .search-box svg{ flex:none; color:#8a93a8; }
+  .search-box input{
+    flex:1; border:none; outline:none; font-size:15px; padding:12px 4px;
+    background:transparent; color: var(--ink); font-family:'Inter', sans-serif;
+  }
+  .search-box input::placeholder{ color:#9aa4ae; }
+  .clear-btn{
+    display:none; border:none; background:#eef0ee; color:#5b6672;
+    width:26px; height:26px; border-radius:50%; font-size:14px; line-height:1; cursor:pointer; flex:none;
+  }
+  .clear-btn.show{ display:block; }
+
+  .cek-hint{ margin: 10px 36px 0; font-size:12px; color:#8a93a8; text-align:center; }
+
+  .cek-results{ max-width: 620px; margin: 0 auto; padding: 18px 36px 50px; }
+  .cek-status{ text-align:center; color:#8a93a8; font-size:13px; padding:30px 20px; line-height:1.6; }
+  .cek-status strong{ color: var(--navy); }
+  .cek-count{ font-size:12px; color:#8a93a8; margin:2px 4px 12px; }
+
+  .cek-card{
+    background:#fff; border:1px solid var(--line); border-radius:14px;
+    padding:16px 16px 14px; margin-bottom:12px;
+    box-shadow:0 1px 2px rgba(16,33,63,0.04);
+  }
+  .cek-card-head{
+    display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+    border-bottom:1px dashed var(--line); padding-bottom:11px; margin-bottom:11px;
+  }
+  .cek-card-name{ font-size:15px; font-weight:700; color: var(--navy); line-height:1.3; }
+  .cek-card-school{ font-size:12px; color:#8a93a8; margin-top:3px; }
+  .cek-badge{
+    flex:none; font-size:10px; font-weight:700; letter-spacing:.05em; color: var(--navy);
+    background: rgba(201,162,39,0.16); border:1px solid rgba(201,162,39,0.4);
+    padding:4px 8px; border-radius:100px; white-space:nowrap;
+  }
+  .cek-badge.cad{ color:#7a4f2f; background:#fbeee1; border-color:rgba(200,120,60,0.35); }
+
+  .cek-field-grid{ display:grid; grid-template-columns:1fr 1fr; gap:9px; }
+  .cek-field{ background: var(--cream); border:1px solid var(--line); border-radius:10px; padding:9px 10px; }
+  .cek-field.full{ grid-column:1 / -1; }
+  .cek-field-label{ font-size:10px; text-transform:uppercase; letter-spacing:.06em; color:#8a93a8; margin-bottom:3px; font-weight:600; }
+  .cek-field-row{ display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .cek-field-value{
+    font-size:14px; font-weight:600; color: var(--navy);
+    font-family:'JetBrains Mono', monospace; word-break:break-all;
+  }
+  .cek-copy-btn{
+    flex:none; border:none; background: var(--navy); color:#fff; font-size:11px; font-weight:600;
+    padding:6px 10px; border-radius:7px; cursor:pointer; display:flex; align-items:center; gap:4px;
+    transition: background .15s, transform .1s;
+  }
+  .cek-copy-btn:active{ transform: scale(.94); }
+  .cek-copy-btn.copied{ background:#2f7a4f; }
+  .cek-copy-btn svg{ width:12px; height:12px; }
+
+  .cek-copy-all-row{ margin-top:11px; text-align:right; }
+  .cek-copy-all-btn{
+    border:1px solid var(--navy); background:#fff; color: var(--navy); font-size:12px; font-weight:600;
+    padding:8px 12px; border-radius:9px; cursor:pointer;
+  }
+  .cek-copy-all-btn.copied{ background:#2f7a4f; border-color:#2f7a4f; color:#fff; }
+
+  mark{ background:#f6ecd4; color:inherit; border-radius:3px; }
+
+  @media (max-width:360px){
+    .cek-field-grid{ grid-template-columns:1fr; }
+  }
+
+  @media (max-width: 480px){
+    .title{ font-size: 27px; }
+    .header, .section, .access{ padding-left: 22px; padding-right: 22px; }
+    .link-box{ flex-direction: column; align-items: flex-start; }
+    .link-box .url{ font-size: 16px; word-break: break-all; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+<div class="poster">
+
+  <div class="header">
+    <div class="eyebrow">LBB Gama Global · Simulasi Tes Diagnostik · Untuk Peserta</div>
+    <div class="title">Petunjuk Teknis<br><em>Simulasi TKA 2026</em></div>
+    <p class="subtitle">Simulasi dikerjakan mandiri dan diawasi otomatis oleh sistem. Baca aturan berikut sebelum mulai mengerjakan.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Yang Tidak Boleh Dilakukan</div>
+    <div class="rules">
+      <div class="rule">
+        <div class="ico">✕</div>
+        <div class="txt">
+          <strong>Berpindah tab atau aplikasi</strong>
+          <span>Keluar dari halaman ujian selama sesi berlangsung akan langsung terdeteksi sistem.</span>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="ico">✕</div>
+        <div class="txt">
+          <strong>Copy &amp; paste soal atau jawaban</strong>
+          <span>Menyalin teks soal ke luar aplikasi, atau menempelkan jawaban dari sumber lain, tidak diperbolehkan.</span>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="ico">✕</div>
+        <div class="txt">
+          <strong>Membuka aplikasi atau perangkat lain</strong>
+          <span>Termasuk mesin pencari, aplikasi chat, kalkulator eksternal, atau perangkat kedua saat mengerjakan.</span>
+        </div>
+      </div>
+      <div class="rule">
+        <div class="ico">✕</div>
+        <div class="txt">
+          <strong>Bekerja sama dengan peserta lain</strong>
+          <span>Simulasi ini mengukur kemampuan individu — kerja sama membuat hasil tidak mencerminkan kemampuanmu.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Susunan Mata Pelajaran</div>
+    <p class="escalation-intro">Mengikuti struktur TKA asli: 5 mata pelajaran per sesi, terdiri dari 3 mapel wajib dan 2 mapel pilihan sesuai minat peserta. Setiap mapel terdiri dari <strong>20 soal</strong> dengan waktu <strong>30 menit</strong>.</p>
+
+    <span class="mapel-tag wajib">3 Mapel Wajib</span>
+    <div class="mapel-group" style="margin-bottom:22px;">
+      <div class="mapel-item"><span class="mnum">1</span><span class="mname">Bahasa Indonesia</span><span class="mmeta">20 soal · 30 menit</span></div>
+      <div class="mapel-item"><span class="mnum">2</span><span class="mname">Bahasa Inggris</span><span class="mmeta">20 soal · 30 menit</span></div>
+      <div class="mapel-item"><span class="mnum">3</span><span class="mname">Matematika</span><span class="mmeta">20 soal · 30 menit</span></div>
+    </div>
+
+    <span class="mapel-tag pilihan">2 Mapel Pilihan — peserta memilih 2 dari daftar berikut</span>
+    <div class="pilihan-groups">
+      <div class="pilihan-cat">
+        <span class="cat-label">Rumpun MIPA</span>
+        <div class="chips">
+          <span class="chip">Matematika Tingkat Lanjut</span>
+          <span class="chip">Fisika</span>
+          <span class="chip">Kimia</span>
+          <span class="chip">Biologi</span>
+        </div>
+      </div>
+      <div class="pilihan-cat">
+        <span class="cat-label">Rumpun IPS</span>
+        <div class="chips">
+          <span class="chip">Ekonomi</span>
+          <span class="chip">Sosiologi</span>
+          <span class="chip">Geografi</span>
+          <span class="chip">Sejarah</span>
+          <span class="chip">Antropologi</span>
+        </div>
+      </div>
+      <div class="pilihan-cat">
+        <span class="cat-label">PPKn &amp; Bahasa Lanjut</span>
+        <div class="chips">
+          <span class="chip">Pendidikan Pancasila / PPKn</span>
+          <span class="chip">Bahasa Indonesia Tingkat Lanjut</span>
+          <span class="chip">Bahasa Inggris Tingkat Lanjut</span>
+        </div>
+      </div>
+      <div class="pilihan-cat">
+        <span class="cat-label">Bahasa Asing</span>
+        <div class="chips">
+          <span class="chip">Bahasa Arab</span>
+          <span class="chip">Bahasa Mandarin</span>
+          <span class="chip">Bahasa Jepang</span>
+          <span class="chip">Bahasa Korea</span>
+          <span class="chip">Bahasa Prancis</span>
+          <span class="chip">Bahasa Jerman</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="total-bar">
+      <span>Total per sesi</span>
+      <strong>5 mapel · 100 soal · 150 menit</strong>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">Sistem Peringatan</div>
+    <p class="escalation-intro">Setiap kali sistem mendeteksi indikasi kecurangan di atas, satu peringatan akan tercatat. Peringatan bersifat akumulatif selama sesi berlangsung.</p>
+
+    <div class="stairs">
+      <div class="step">
+        <div class="num">1</div>
+        <div class="card">
+          <span class="tag">Peringatan Pertama</span>
+          <h4>Notifikasi &amp; teguran</h4>
+          <p>Muncul peringatan di layar. Sesi tetap berjalan — anggap ini sebagai teguran untuk kembali fokus.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div class="card">
+          <span class="tag">Peringatan Kedua</span>
+          <h4>Peringatan tegas</h4>
+          <p>Pelanggaran terulang. Peringatan berikutnya akan menghentikan sesi ujianmu.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div class="card">
+          <span class="tag">Peringatan Ketiga</span>
+          <h4>Sesi terkunci otomatis</h4>
+          <p>Akun ujian dikunci oleh sistem dan tidak dapat dilanjutkan sendiri.</p>
+          <div class="lock-note">
+            <span class="lico">🔒</span>
+            <span>Hanya <b>panitia</b> yang dapat membuka kembali akun yang terkunci. Hubungi pengawas ruangan segera jika ini terjadi.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="access">
+    <div class="section-label">Akses Simulasi</div>
+    <div class="link-box">
+      <div>
+        <div class="url">bit.ly/simtka-gama</div>
+        <div class="hint">Buka tautan ini melalui browser HP atau laptop untuk memulai</div>
+      </div>
+      <div class="go-badge">Mulai →</div>
+    </div>
+    <div class="footer">Diselenggarakan oleh <b>LBB Gama Global</b> — Bantul &amp; Cisauk</div>
+  </div>
+
+</div>
+
+<div class="cek-peserta">
+  <div class="cek-hero">
+    <span class="cek-eyebrow">Cek Data Peserta</span>
+    <h2>Cari Username &amp; Password Kamu</h2>
+    <p>Ketik namamu untuk menemukan username, password, dan nomor ujian simulasi.</p>
+  </div>
+
+  <div class="search-wrap">
+    <div class="search-box">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Ketik nama peserta…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+      <button class="clear-btn" id="clearBtn" aria-label="Hapus">✕</button>
+    </div>
+  </div>
+  <div class="cek-hint" id="hintText">Minimal 3 huruf agar hasil lebih akurat</div>
+
+  <div class="cek-results" id="results"></div>
+</div>
+
+<footer style="text-align:center; font-size:11px; color:#8a93a8; padding:10px 20px 30px;">LBB Gama Global &middot; Data bersifat rahasia, gunakan seperlunya.</footer>
+
+</div>
+
+<script>
+
+const PESERTA = [{"username": "240007", "password": "Man1bgr#27", "fullName": "ADEL TARIGAN", "noUjian": "TKA-2026-240007", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240039", "password": "Man1bgr#27", "fullName": "AL MALIKA SHAFA PUTRI LAVENIA", "noUjian": "TKA-2026-240039", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240049", "password": "Man1bgr#27", "fullName": "ALILAH WASYFA FAUZAH MASPEKE", "noUjian": "TKA-2026-240049", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240068", "password": "Man1bgr#27", "fullName": "ANDHARA PUTRI", "noUjian": "TKA-2026-240068", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240078", "password": "Man1bgr#27", "fullName": "ANNISA AINI LATIFAH", "noUjian": "TKA-2026-240078", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240090", "password": "Man1bgr#27", "fullName": "ATHAILLAH TSAQIF", "noUjian": "TKA-2026-240090", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240118", "password": "Man1bgr#27", "fullName": "BILAL FADHIL HAWARI", "noUjian": "TKA-2026-240118", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240123", "password": "Man1bgr#27", "fullName": "CALLYSTA AURELIA SETIAWAN", "noUjian": "TKA-2026-240123", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240143", "password": "Man1bgr#27", "fullName": "DHEFABIAN HERSAPUTRA PERMANA", "noUjian": "TKA-2026-240143", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240157", "password": "Man1bgr#27", "fullName": "DZAKY ALMER FADILLAH", "noUjian": "TKA-2026-240157", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240187", "password": "Man1bgr#27", "fullName": "FATWAH AULIA FANESYA", "noUjian": "TKA-2026-240187", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240209", "password": "Man1bgr#27", "fullName": "HANA ALTHOFUNNISA", "noUjian": "TKA-2026-240209", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240234", "password": "Man1bgr#27", "fullName": "JIHAN RIHADATUL'AISYA", "noUjian": "TKA-2026-240234", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240238", "password": "Man1bgr#27", "fullName": "KALILA ARTA RAMADHANI", "noUjian": "TKA-2026-240238", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240249", "password": "Man1bgr#27", "fullName": "KEISHA FAUZIYAH AZ ZAHRA", "noUjian": "TKA-2026-240249", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240266", "password": "Man1bgr#27", "fullName": "KIKI TARISYA PUTRI", "noUjian": "TKA-2026-240266", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240277", "password": "Man1bgr#27", "fullName": "LUTH ALZINDAN", "noUjian": "TKA-2026-240277", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240294", "password": "Man1bgr#27", "fullName": "MAYLAN LIN AL MUFIDAH", "noUjian": "TKA-2026-240294", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240310", "password": "Man1bgr#27", "fullName": "MUHAMAD WILDAN AL JANIYAH", "noUjian": "TKA-2026-240310", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240320", "password": "Man1bgr#27", "fullName": "MUHAMMAD ALMER SAKHI ZAIDAN", "noUjian": "TKA-2026-240320", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240338", "password": "Man1bgr#27", "fullName": "MUHAMMAD FATHIR", "noUjian": "TKA-2026-240338", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240358", "password": "Man1bgr#27", "fullName": "MUHAMMAD NUGRAHA SYARIF HIDAYAT", "noUjian": "TKA-2026-240358", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240376", "password": "Man1bgr#27", "fullName": "MUTIARA NAZHIRA PUTRI", "noUjian": "TKA-2026-240376", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240389", "password": "Man1bgr#27", "fullName": "NASHWA AYYESHA FATIH", "noUjian": "TKA-2026-240389", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240392", "password": "Man1bgr#27", "fullName": "NAUFAL ADLI", "noUjian": "TKA-2026-240392", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240412", "password": "Man1bgr#27", "fullName": "NUR AINI AZZAHRA", "noUjian": "TKA-2026-240412", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240427", "password": "Man1bgr#27", "fullName": "QUINIRA MEYLIA ANSONI", "noUjian": "TKA-2026-240427", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240432", "password": "Man1bgr#27", "fullName": "RAFFI AHMAD FAUZI NASUTION", "noUjian": "TKA-2026-240432", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240556A", "password": "Man1bgr#27", "fullName": "RATU RIZQY AZZAHRA SMARTHANIA", "noUjian": "TKA-2026-240556A", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240556B", "password": "Man1bgr#27", "fullName": "RIFQY SALMAN ATH THABRANI", "noUjian": "TKA-2026-240556B", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240478", "password": "Man1bgr#27", "fullName": "SALWA NADIA WIGUNA", "noUjian": "TKA-2026-240478", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240486", "password": "Man1bgr#27", "fullName": "SHADRINA NACHITA", "noUjian": "TKA-2026-240486", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240500", "password": "Man1bgr#27", "fullName": "SUFIANI SARALIPU", "noUjian": "TKA-2026-240500", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240507", "password": "Man1bgr#27", "fullName": "SYAIDAN SYAKIR MAULANA", "noUjian": "TKA-2026-240507", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240535", "password": "Man1bgr#27", "fullName": "YUGA HERDIAN", "noUjian": "TKA-2026-240535", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240537", "password": "Man1bgr#27", "fullName": "ZAHRA AINI", "noUjian": "TKA-2026-240537", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240545", "password": "Man1bgr#27", "fullName": "ZALFA NAFISA", "noUjian": "TKA-2026-240545", "sekolah": "MAN 1 BOGOR - XII 1"}, {"username": "240009", "password": "Man1bgr#27", "fullName": "ADHYARAFKA ATHAULLAH", "noUjian": "TKA-2026-240009", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240012", "password": "Man1bgr#27", "fullName": "ADINDA SHABILA PUTRI", "noUjian": "TKA-2026-240012", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240042", "password": "Man1bgr#27", "fullName": "ALHAKIM MULIA HABIBANNA SULTONI", "noUjian": "TKA-2026-240042", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240058", "password": "Man1bgr#27", "fullName": "ALYA NIRBITA", "noUjian": "TKA-2026-240058", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240075", "password": "Man1bgr#27", "fullName": "ANINKA JAMILATUNNISA", "noUjian": "TKA-2026-240075", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240083", "password": "Man1bgr#27", "fullName": "ARGHITA MIFTHA PUTRI WIBOWO", "noUjian": "TKA-2026-240083", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240091", "password": "Man1bgr#27", "fullName": "ATHAYA ZARIFAH", "noUjian": "TKA-2026-240091", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240120", "password": "Man1bgr#27", "fullName": "BOY SHANDI", "noUjian": "TKA-2026-240120", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240127", "password": "Man1bgr#27", "fullName": "CHARITY MAHDIYYAH AJI", "noUjian": "TKA-2026-240127", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240188", "password": "Man1bgr#27", "fullName": "FAWWAZ LINTANG PRASTYO", "noUjian": "TKA-2026-240188", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240200", "password": "Man1bgr#27", "fullName": "GHINA DAUD ALQUEENA", "noUjian": "TKA-2026-240200", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240211", "password": "Man1bgr#27", "fullName": "HANIFA AZRA SYARIFA", "noUjian": "TKA-2026-240211", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240235", "password": "Man1bgr#27", "fullName": "JUHRIYATUL A'INI WAHIDAH", "noUjian": "TKA-2026-240235", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240239", "password": "Man1bgr#27", "fullName": "KALYCA AZALIA INDAH FEBRIANTI", "noUjian": "TKA-2026-240239", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240252", "password": "Man1bgr#27", "fullName": "KEKSI AMBAR PERWITASARI", "noUjian": "TKA-2026-240252", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240276", "password": "Man1bgr#27", "fullName": "LUNA TANIA IRMAWAN", "noUjian": "TKA-2026-240276", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240279", "password": "Man1bgr#27", "fullName": "LUTHFI AZ ZAHRA HUMAIRA", "noUjian": "TKA-2026-240279", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240287", "password": "Man1bgr#27", "fullName": "MANSYAUL FADLI", "noUjian": "TKA-2026-240287", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240322", "password": "Man1bgr#27", "fullName": "MUHAMMAD ARIFIN IZZATUL ISLAM", "noUjian": "TKA-2026-240322", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240340", "password": "Man1bgr#27", "fullName": "MUHAMMAD FAWWAZ SITANGGANG", "noUjian": "TKA-2026-240340", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240362", "password": "Man1bgr#27", "fullName": "MUHAMMAD RAFLI", "noUjian": "TKA-2026-240362", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240379", "password": "Man1bgr#27", "fullName": "NADYA AULIA PUTRI", "noUjian": "TKA-2026-240379", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240394", "password": "Man1bgr#27", "fullName": "NAUFAL RAFIFSYAH", "noUjian": "TKA-2026-240394", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240407", "password": "Man1bgr#27", "fullName": "NIKEISHA BELINDA ISMAWATI", "noUjian": "TKA-2026-240407", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240417", "password": "Man1bgr#27", "fullName": "NURUL RAHMA FAUZIAH", "noUjian": "TKA-2026-240417", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240434", "password": "Man1bgr#27", "fullName": "RAFIF ASYRAF MANGGALA", "noUjian": "TKA-2026-240434", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240438", "password": "Man1bgr#27", "fullName": "RAHMANIA ZUKHRUFUNNISA", "noUjian": "TKA-2026-240438", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240460", "password": "Man1bgr#27", "fullName": "RIZKI ARIF BUDIANTO", "noUjian": "TKA-2026-240460", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240474", "password": "Man1bgr#27", "fullName": "SALSABILA NUR FAUZIAH", "noUjian": "TKA-2026-240474", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240479", "password": "Man1bgr#27", "fullName": "SANDRICA SALSABILA", "noUjian": "TKA-2026-240479", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240488", "password": "Man1bgr#27", "fullName": "SHAFA NURUL LATIFAH", "noUjian": "TKA-2026-240488", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240505", "password": "Man1bgr#27", "fullName": "SYAHLA NURI HANIFAH", "noUjian": "TKA-2026-240505", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240522", "password": "Man1bgr#27", "fullName": "TRISTAN AKBAR", "noUjian": "TKA-2026-240522", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240538", "password": "Man1bgr#27", "fullName": "ZAHRA AULIA RAHMA PUTRI HENDRI", "noUjian": "TKA-2026-240538", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240548", "password": "Man1bgr#27", "fullName": "ZANIA SHAFWAH RAMADHANI", "noUjian": "TKA-2026-240548", "sekolah": "MAN 1 BOGOR - XII 2"}, {"username": "240014", "password": "Man1bgr#27", "fullName": "ADYA DARMA MAHARDIKA PRIADI", "noUjian": "TKA-2026-240014", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240034", "password": "Man1bgr#27", "fullName": "AISYAH GIA SYAHANDI", "noUjian": "TKA-2026-240034", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240067", "password": "Man1bgr#27", "fullName": "ANA AL UMAYA RISTI", "noUjian": "TKA-2026-240067", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240077", "password": "Man1bgr#27", "fullName": "ANITA AGUSTIN", "noUjian": "TKA-2026-240077", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240089A", "password": "Man1bgr#27", "fullName": "ARSYA AZKIYATUL LUTFIAH", "noUjian": "TKA-2026-240089A", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240101", "password": "Man1bgr#27", "fullName": "AUZA 'UYUUN ILMI WIDJAJA", "noUjian": "TKA-2026-240101", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240138", "password": "Man1bgr#27", "fullName": "DEA NAURAH PUTRI", "noUjian": "TKA-2026-240138", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240151", "password": "Man1bgr#27", "fullName": "DWI AJI SANTOSO", "noUjian": "TKA-2026-240151", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240183", "password": "Man1bgr#27", "fullName": "FATIMAH ADINDA QISYAN", "noUjian": "TKA-2026-240183", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240208", "password": "Man1bgr#27", "fullName": "HAFSHOH RAIHANAH KAMILAH", "noUjian": "TKA-2026-240208", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240219", "password": "Man1bgr#27", "fullName": "HILMA AULIA RAHMANI", "noUjian": "TKA-2026-240219", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240237", "password": "Man1bgr#27", "fullName": "KALILA ADELIA PUTRI", "noUjian": "TKA-2026-240237", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240241", "password": "Man1bgr#27", "fullName": "KARRENIA PUTRI ZEFANYA", "noUjian": "TKA-2026-240241", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240253", "password": "Man1bgr#27", "fullName": "KEVIN DWI OCTAVIANDI", "noUjian": "TKA-2026-240253", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240254", "password": "Man1bgr#27", "fullName": "KEYLA NAZROTU SOLIHAH", "noUjian": "TKA-2026-240254", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240281", "password": "Man1bgr#27", "fullName": "LUTHFIA NISRINA", "noUjian": "TKA-2026-240281", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240311", "password": "Man1bgr#27", "fullName": "MUHAMMAD ABDUL AZIZ", "noUjian": "TKA-2026-240311", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240332", "password": "Man1bgr#27", "fullName": "MUHAMMAD FADHILAH AKBAR YAMANI", "noUjian": "TKA-2026-240332", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240344", "password": "Man1bgr#27", "fullName": "MUHAMMAD HAIKAL DZAKWAN", "noUjian": "TKA-2026-240344", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240348", "password": "Man1bgr#27", "fullName": "MUHAMMAD IRSA RIZKY ASY SYAFI", "noUjian": "TKA-2026-240348", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240367", "password": "Man1bgr#27", "fullName": "MUHAMMAD SEAN AKHTAR DEVISYAHDAN", "noUjian": "TKA-2026-240367", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240375", "password": "Man1bgr#27", "fullName": "MUTIARA JIHAN SYAHIRA", "noUjian": "TKA-2026-240375", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240382", "password": "Man1bgr#27", "fullName": "NAFISA KAMILA NUR AZKIYA", "noUjian": "TKA-2026-240382", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240388", "password": "Man1bgr#27", "fullName": "NASHIFAH RAMADHANI", "noUjian": "TKA-2026-240388", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240403", "password": "Man1bgr#27", "fullName": "NAZRIL ANNAS AL FATHIER", "noUjian": "TKA-2026-240403", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240410", "password": "Man1bgr#27", "fullName": "NOVITA KHOIRUNISA", "noUjian": "TKA-2026-240410", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240425", "password": "Man1bgr#27", "fullName": "QONITA SAJIDAH", "noUjian": "TKA-2026-240425", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240437", "password": "Man1bgr#27", "fullName": "RAFY MAULANA YUSUF", "noUjian": "TKA-2026-240437", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240446", "password": "Man1bgr#27", "fullName": "RANA SALSA BILA", "noUjian": "TKA-2026-240446", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240468", "password": "Man1bgr#27", "fullName": "SAKHA FATHIN FATTAHILLAH", "noUjian": "TKA-2026-240468", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240475", "password": "Man1bgr#27", "fullName": "SALSABILLA ANUGRAH PUTRI", "noUjian": "TKA-2026-240475", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240482", "password": "Man1bgr#27", "fullName": "SEKAR KHAIRANA HANDOKO PUTRI", "noUjian": "TKA-2026-240482", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240499", "password": "Man1bgr#27", "fullName": "SITI ROHADATUL AISY", "noUjian": "TKA-2026-240499", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240523", "password": "Man1bgr#27", "fullName": "TSAQIF FAYYADH MUZHAFFAR", "noUjian": "TKA-2026-240523", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240540", "password": "Man1bgr#27", "fullName": "ZAHRA PRADITA ASY SYIFA", "noUjian": "TKA-2026-240540", "sekolah": "MAN 1 BOGOR - XII 3"}, {"username": "240001", "password": "Man1bgr#27", "fullName": "ABDUL HAFIZH MAULANA", "noUjian": "TKA-2026-240001", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240018", "password": "Man1bgr#27", "fullName": "AFIFAH KHAIRUNNISA", "noUjian": "TKA-2026-240018", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240020", "password": "Man1bgr#27", "fullName": "AGHA TAQIUDDIN AL-HARIS", "noUjian": "TKA-2026-240020", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240031", "password": "Man1bgr#27", "fullName": "AILEN FAUZTINA SUMANTO", "noUjian": "TKA-2026-240031", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240060", "password": "Man1bgr#27", "fullName": "ALYSA IHSYAHWA NURSYABILLA", "noUjian": "TKA-2026-240060", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240080", "password": "Man1bgr#27", "fullName": "ANNISA ZAHRATUSSITA", "noUjian": "TKA-2026-240080", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240085", "password": "Man1bgr#27", "fullName": "ARIYOPUTRA NUR RAMADHAN", "noUjian": "TKA-2026-240085", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240105", "password": "Man1bgr#27", "fullName": "AZEMA LISANDRA NURROHMAN", "noUjian": "TKA-2026-240105", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240126", "password": "Man1bgr#27", "fullName": "CHANTIKA DWI PUTRI", "noUjian": "TKA-2026-240126", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240137", "password": "Man1bgr#27", "fullName": "DAVINA AULIA SALWA", "noUjian": "TKA-2026-240137", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240150", "password": "Man1bgr#27", "fullName": "DIVA MARSYANDA", "noUjian": "TKA-2026-240150", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240156", "password": "Man1bgr#27", "fullName": "DZAKWAN PUTRA ANDRIAN", "noUjian": "TKA-2026-240156", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240159", "password": "Man1bgr#27", "fullName": "ELMIRA DIAS OKTAVIANI", "noUjian": "TKA-2026-240159", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240168", "password": "Man1bgr#27", "fullName": "FAHIRA NUR AFIFAH", "noUjian": "TKA-2026-240168", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240204", "password": "Man1bgr#27", "fullName": "HAFIZH HANS ATTALLAH", "noUjian": "TKA-2026-240204", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240212", "password": "Man1bgr#27", "fullName": "HANIFA TRI SYAFIRA", "noUjian": "TKA-2026-240212", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240243", "password": "Man1bgr#27", "fullName": "KAYLA MARITZA ADYANUGRA", "noUjian": "TKA-2026-240243", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240255", "password": "Man1bgr#27", "fullName": "KEYLA ZERLINDA", "noUjian": "TKA-2026-240255", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240267", "password": "Man1bgr#27", "fullName": "LARAS ATHIRAH KHAIRANI", "noUjian": "TKA-2026-240267", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240278", "password": "Man1bgr#27", "fullName": "LUTHFI ABADA ZULMA", "noUjian": "TKA-2026-240278", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240293", "password": "Man1bgr#27", "fullName": "MAURA ALZENA PUTRI", "noUjian": "TKA-2026-240293", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240315", "password": "Man1bgr#27", "fullName": "MUHAMMAD AKBAR SA`ALAM BERNAPADA SUMA`ALI", "noUjian": "TKA-2026-240315", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240331", "password": "Man1bgr#27", "fullName": "MUHAMMAD FADHIL RIZKI", "noUjian": "TKA-2026-240331", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240352", "password": "Man1bgr#27", "fullName": "MUHAMMAD NASHIP MUKHTAR", "noUjian": "TKA-2026-240352", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240386", "password": "Man1bgr#27", "fullName": "NANDYA RAHEL NURHALIZA", "noUjian": "TKA-2026-240386", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240393", "password": "Man1bgr#27", "fullName": "NAUFAL BAGAS AL MUTTAQIN", "noUjian": "TKA-2026-240393", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240402", "password": "Man1bgr#27", "fullName": "NAZRIEL AL RAISHA", "noUjian": "TKA-2026-240402", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240413", "password": "Man1bgr#27", "fullName": "NUR MAWADDAH BATUBARA", "noUjian": "TKA-2026-240413", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240422", "password": "Man1bgr#27", "fullName": "PUTRI NUGRAHAENI", "noUjian": "TKA-2026-240422", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240436", "password": "Man1bgr#27", "fullName": "RAFKA FIRLY FA'IQ HASAN", "noUjian": "TKA-2026-240436", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240443", "password": "Man1bgr#27", "fullName": "RAISYAH FAJRIATUL USFYRAH", "noUjian": "TKA-2026-240443", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240469", "password": "Man1bgr#27", "fullName": "SALIS USWATUNNISA SUGANDA", "noUjian": "TKA-2026-240469", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240480", "password": "Man1bgr#27", "fullName": "SARAH A SYIFA", "noUjian": "TKA-2026-240480", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240490", "password": "Man1bgr#27", "fullName": "SHOLAHUDDIN RAFA`A SUPRIYAWAN", "noUjian": "TKA-2026-240490", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240508", "password": "Man1bgr#27", "fullName": "SYALWA HANIFAH", "noUjian": "TKA-2026-240508", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240531", "password": "Man1bgr#27", "fullName": "WIDYA CITRA CHAERUNNISA", "noUjian": "TKA-2026-240531", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240542", "password": "Man1bgr#27", "fullName": "ZAHWA NURBILA", "noUjian": "TKA-2026-240542", "sekolah": "MAN 1 BOGOR - XII 4"}, {"username": "240005", "password": "Man1bgr#27", "fullName": "ABYAN MORENO INDRAWOKO", "noUjian": "TKA-2026-240005", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240008", "password": "Man1bgr#27", "fullName": "ADELLA KENTI RAHMADANI", "noUjian": "TKA-2026-240008", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240024", "password": "Man1bgr#27", "fullName": "AHMAD FAUZAN NOOR SYA'BANI", "noUjian": "TKA-2026-240024", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240037", "password": "Man1bgr#27", "fullName": "AL AZHIM FADHILAH AZMI", "noUjian": "TKA-2026-240037", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240059", "password": "Man1bgr#27", "fullName": "ALYA RAHMA", "noUjian": "TKA-2026-240059", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240089B", "password": "Man1bgr#27", "fullName": "ASKANA RATIFA BUDIMAN", "noUjian": "TKA-2026-240089B", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240099", "password": "Man1bgr#27", "fullName": "AURA AYU ANDIRA", "noUjian": "TKA-2026-240099", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240110", "password": "Man1bgr#27", "fullName": "AZKIA ZHAFIRA FATHIYYAH", "noUjian": "TKA-2026-240110", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240132", "password": "Man1bgr#27", "fullName": "CITRA ALVIANITA", "noUjian": "TKA-2026-240132", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240144", "password": "Man1bgr#27", "fullName": "DHIFA TRIA CHARISSA", "noUjian": "TKA-2026-240144", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240153", "password": "Man1bgr#27", "fullName": "DWI SALMA KASIH", "noUjian": "TKA-2026-240153", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240160", "password": "Man1bgr#27", "fullName": "ELRIANSYAH HABIBIE", "noUjian": "TKA-2026-240160", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240189", "password": "Man1bgr#27", "fullName": "FAYYADH LABIB ULAYYA AL GHAZI", "noUjian": "TKA-2026-240189", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240557", "password": "Man1bgr#27", "fullName": "FIRDA ARDILLA", "noUjian": "TKA-2026-240557", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240205", "password": "Man1bgr#27", "fullName": "HAFIZH IMAM FAQIH", "noUjian": "TKA-2026-240205", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240217", "password": "Man1bgr#27", "fullName": "HAURANISA ZULAYKA", "noUjian": "TKA-2026-240217", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240246", "password": "Man1bgr#27", "fullName": "KAYYISAH NAFIAH HADDYSAN", "noUjian": "TKA-2026-240246", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240257", "password": "Man1bgr#27", "fullName": "KHAIRANI NUR ZAHIDAH", "noUjian": "TKA-2026-240257", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240270", "password": "Man1bgr#27", "fullName": "LEONY ALMAGHFIRA SUWARDI", "noUjian": "TKA-2026-240270", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240283", "password": "Man1bgr#27", "fullName": "M DIMAS ALKAUTSAR", "noUjian": "TKA-2026-240283", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240312", "password": "Man1bgr#27", "fullName": "MUHAMMAD ABDUL BASITH", "noUjian": "TKA-2026-240312", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240319", "password": "Man1bgr#27", "fullName": "MUHAMMAD ALMER AFKAR ASY’ARI", "noUjian": "TKA-2026-240319", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240339", "password": "Man1bgr#27", "fullName": "MUHAMMAD FAUZI", "noUjian": "TKA-2026-240339", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240355", "password": "Man1bgr#27", "fullName": "MUHAMMAD NAUFAL IBTIHAL RAMADHAN", "noUjian": "TKA-2026-240355", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240377", "password": "Man1bgr#27", "fullName": "NADIYA AL KANSA AZIS", "noUjian": "TKA-2026-240377", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240395", "password": "Man1bgr#27", "fullName": "NAURA MUTHMAINNAH", "noUjian": "TKA-2026-240395", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240406", "password": "Man1bgr#27", "fullName": "NHIKITA ILMI YANTI", "noUjian": "TKA-2026-240406", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240414", "password": "Man1bgr#27", "fullName": "NUR SYAHDINA ARRAJWA", "noUjian": "TKA-2026-240414", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240424", "password": "Man1bgr#27", "fullName": "QARY DZAKY MAAJID", "noUjian": "TKA-2026-240424", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240426", "password": "Man1bgr#27", "fullName": "QUEEN MALIKI", "noUjian": "TKA-2026-240426", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240450", "password": "Man1bgr#27", "fullName": "RAYNAR DZAKI DZUL HANAN SYAFIF", "noUjian": "TKA-2026-240450", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240466", "password": "Man1bgr#27", "fullName": "SAFINATUN NAJJAH ARRAYAN", "noUjian": "TKA-2026-240466", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240472", "password": "Man1bgr#27", "fullName": "SALSA AULIA KHAIRANI", "noUjian": "TKA-2026-240472", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240491", "password": "Man1bgr#27", "fullName": "SIFA NURNAENI", "noUjian": "TKA-2026-240491", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240492", "password": "Man1bgr#27", "fullName": "SIGIT NUR ARBAIN", "noUjian": "TKA-2026-240492", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240511", "password": "Man1bgr#27", "fullName": "SYIFA AULIA SEKAR SRIKANDI", "noUjian": "TKA-2026-240511", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240536", "password": "Man1bgr#27", "fullName": "ZAHIRA KHAIRUNNISA SIHONO", "noUjian": "TKA-2026-240536", "sekolah": "MAN 1 BOGOR - XII 5"}, {"username": "240013", "password": "Man1bgr#27", "fullName": "ADRIAN MAULANA YUSUF", "noUjian": "TKA-2026-240013", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240015", "password": "Man1bgr#27", "fullName": "ADZKA ATTHIFAH NAIMAH", "noUjian": "TKA-2026-240015", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240028", "password": "Man1bgr#27", "fullName": "AHMAD RAFY MAULANA FADHIL", "noUjian": "TKA-2026-240028", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240055", "password": "Man1bgr#27", "fullName": "ALTHAF EZAR KHADAFI", "noUjian": "TKA-2026-240055", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240063", "password": "Man1bgr#27", "fullName": "AMANDA SYAIRA VIRGIN", "noUjian": "TKA-2026-240063", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240104", "password": "Man1bgr#27", "fullName": "AYU KEIZA PUTRI NYERUPA", "noUjian": "TKA-2026-240104", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240121", "password": "Man1bgr#27", "fullName": "BUNGA ARIFAH ZUHRO AL MAGHTANI", "noUjian": "TKA-2026-240121", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240128", "password": "Man1bgr#27", "fullName": "CHARIZ APRINAL AKBAR", "noUjian": "TKA-2026-240128", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240134", "password": "Man1bgr#27", "fullName": "DANISHA PRICILIA RAHMAN", "noUjian": "TKA-2026-240134", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240146", "password": "Man1bgr#27", "fullName": "DIANA DIVA APRILIA", "noUjian": "TKA-2026-240146", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240155", "password": "Man1bgr#27", "fullName": "DZAHRA ADINDA PUTRI", "noUjian": "TKA-2026-240155", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240164", "password": "Man1bgr#27", "fullName": "FADIA LATIFA AZ ZAHRA", "noUjian": "TKA-2026-240164", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240198", "password": "Man1bgr#27", "fullName": "GHANIYA SAYIDATUN NISA", "noUjian": "TKA-2026-240198", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240199", "password": "Man1bgr#27", "fullName": "GHAZY AL BAIHAQI", "noUjian": "TKA-2026-240199", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240221", "password": "Man1bgr#27", "fullName": "HILWA MULTAZAM BASRI", "noUjian": "TKA-2026-240221", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240247", "password": "Man1bgr#27", "fullName": "KEFIN YUDHATAMA", "noUjian": "TKA-2026-240247", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240251", "password": "Man1bgr#27", "fullName": "KEISYA AZKIA SUHENDI", "noUjian": "TKA-2026-240251", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240262", "password": "Man1bgr#27", "fullName": "KHANSA MUFIDAH", "noUjian": "TKA-2026-240262", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240285", "password": "Man1bgr#27", "fullName": "MAKAYLA PUTRI NUR ZZWYN", "noUjian": "TKA-2026-240285", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240297", "password": "Man1bgr#27", "fullName": "MOCH FAWWAZ HAFIZ YAMAN", "noUjian": "TKA-2026-240297", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240306", "password": "Man1bgr#27", "fullName": "MUHAMAD ISHAK", "noUjian": "TKA-2026-240306", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240327", "password": "Man1bgr#27", "fullName": "MUHAMMAD FACHRI AKBAR", "noUjian": "TKA-2026-240327", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240357", "password": "Man1bgr#27", "fullName": "MUHAMMAD NAZRIL LUBIS", "noUjian": "TKA-2026-240357", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240383", "password": "Man1bgr#27", "fullName": "NAILA ZHAHIRAH ALIM", "noUjian": "TKA-2026-240383", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240400", "password": "Man1bgr#27", "fullName": "NAZLA ALIKA REXIANA", "noUjian": "TKA-2026-240400", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240408", "password": "Man1bgr#27", "fullName": "NIKI YASA DIAN APSARI", "noUjian": "TKA-2026-240408", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240415", "password": "Man1bgr#27", "fullName": "NURUL AZIZAH", "noUjian": "TKA-2026-240415", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240430", "password": "Man1bgr#27", "fullName": "RAESITA NURMAIRAH", "noUjian": "TKA-2026-240430", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240435", "password": "Man1bgr#27", "fullName": "RAFIF FAWWAZ ZAHID", "noUjian": "TKA-2026-240435", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240455", "password": "Man1bgr#27", "fullName": "REYHAN", "noUjian": "TKA-2026-240455", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240467", "password": "Man1bgr#27", "fullName": "SAFIRA SYAFINATUN NAJAH", "noUjian": "TKA-2026-240467", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240476", "password": "Man1bgr#27", "fullName": "SALSABILLA DWI SEPTIANI", "noUjian": "TKA-2026-240476", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240497", "password": "Man1bgr#27", "fullName": "SITI NUR'AINI", "noUjian": "TKA-2026-240497", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240518", "password": "Man1bgr#27", "fullName": "TEUKU ILHAM ZAMZAMI", "noUjian": "TKA-2026-240518", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240520", "password": "Man1bgr#27", "fullName": "TIARA KANZA", "noUjian": "TKA-2026-240520", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240541", "password": "Man1bgr#27", "fullName": "ZAHRANI AS SYIFA", "noUjian": "TKA-2026-240541", "sekolah": "MAN 1 BOGOR - XII 6"}, {"username": "240006", "password": "Man1bgr#27", "fullName": "ACHMAD NADJMI AKBAR", "noUjian": "TKA-2026-240006", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240023", "password": "Man1bgr#27", "fullName": "AGISNI SILFIA NISFISABANI", "noUjian": "TKA-2026-240023", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240030", "password": "Man1bgr#27", "fullName": "AIDA ZAHROTUS SITA", "noUjian": "TKA-2026-240030", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240036", "password": "Man1bgr#27", "fullName": "AKMAL MANAR", "noUjian": "TKA-2026-240036", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240056", "password": "Man1bgr#27", "fullName": "ALTHAFUNNISA GHIFARA RUHENDI", "noUjian": "TKA-2026-240056", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240094", "password": "Man1bgr#27", "fullName": "AUFA FADHIL PRADITA", "noUjian": "TKA-2026-240094", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240098", "password": "Man1bgr#27", "fullName": "AULIANISA ADHA", "noUjian": "TKA-2026-240098", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240111", "password": "Man1bgr#27", "fullName": "AZRA NAYA NAILLATUL AUTHOR", "noUjian": "TKA-2026-240111", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240116", "password": "Man1bgr#27", "fullName": "BENITA WAKEISHA ABDILLAH", "noUjian": "TKA-2026-240116", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240119", "password": "Man1bgr#27", "fullName": "BINTANG BHANU PRATAMA", "noUjian": "TKA-2026-240119", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240130", "password": "Man1bgr#27", "fullName": "CINDA NAZHA ANURA", "noUjian": "TKA-2026-240130", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240133", "password": "Man1bgr#27", "fullName": "DAFA MAULANA KAMIL", "noUjian": "TKA-2026-240133", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240136", "password": "Man1bgr#27", "fullName": "DAVA WISNU RISQULLOH", "noUjian": "TKA-2026-240136", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240167", "password": "Man1bgr#27", "fullName": "FAHDAN MAULANA IHSAN", "noUjian": "TKA-2026-240167", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240170", "password": "Man1bgr#27", "fullName": "FAHMI HUSNI ZEIN", "noUjian": "TKA-2026-240170", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240176", "password": "Man1bgr#27", "fullName": "FARHANAH FITRIANINGSIH", "noUjian": "TKA-2026-240176", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240181", "password": "Man1bgr#27", "fullName": "FATHIR SAIBIL RASYA", "noUjian": "TKA-2026-240181", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240182", "password": "Man1bgr#27", "fullName": "FATHIYA SHAFIRA PUTRI", "noUjian": "TKA-2026-240182", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240190", "password": "Man1bgr#27", "fullName": "FAYYAZ MUHAMMAD MUMTAZ", "noUjian": "TKA-2026-240190", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240228", "password": "Man1bgr#27", "fullName": "ISNA SABRINA NOVIACITRA", "noUjian": "TKA-2026-240228", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240280", "password": "Man1bgr#27", "fullName": "LUTHFI DWI PURWONO", "noUjian": "TKA-2026-240280", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240299", "password": "Man1bgr#27", "fullName": "MOHAMMAD ARIEF RAMADHAN", "noUjian": "TKA-2026-240299", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240314", "password": "Man1bgr#27", "fullName": "MUHAMMAD AFFAN RAYA MOEFTI", "noUjian": "TKA-2026-240314", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240321", "password": "Man1bgr#27", "fullName": "MUHAMMAD AMMAAR FADHIIL", "noUjian": "TKA-2026-240321", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240325", "password": "Man1bgr#27", "fullName": "MUHAMMAD DHANU ARYASUTA", "noUjian": "TKA-2026-240325", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240330", "password": "Man1bgr#27", "fullName": "MUHAMMAD FACHRI ZAIDAN", "noUjian": "TKA-2026-240330", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240333", "password": "Man1bgr#27", "fullName": "MUHAMMAD FAIRUZ ZACKY", "noUjian": "TKA-2026-240333", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240354", "password": "Man1bgr#27", "fullName": "MUHAMMAD NAUFAL HAFIZ", "noUjian": "TKA-2026-240354", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240361", "password": "Man1bgr#27", "fullName": "MUHAMMAD RAFI WILDAN NUR FATAH", "noUjian": "TKA-2026-240361", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240368", "password": "Man1bgr#27", "fullName": "MUHAMMAD WAHYU", "noUjian": "TKA-2026-240368", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240371", "password": "Man1bgr#27", "fullName": "MUHYI", "noUjian": "TKA-2026-240371", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240378", "password": "Man1bgr#27", "fullName": "NADIYA ZAHRA KHOLDA", "noUjian": "TKA-2026-240378", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240384", "password": "Man1bgr#27", "fullName": "NAJLA AURELIA SAUSAN", "noUjian": "TKA-2026-240384", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240421", "password": "Man1bgr#27", "fullName": "PUTRA WIJAYA KUSUMA", "noUjian": "TKA-2026-240421", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240429", "password": "Man1bgr#27", "fullName": "RADITYA ARIO DANISWORO", "noUjian": "TKA-2026-240429", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240439", "password": "Man1bgr#27", "fullName": "RAIHANA KAGERISTA MUZDHALIFA", "noUjian": "TKA-2026-240439", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240453", "password": "Man1bgr#27", "fullName": "RAZQA RAMADHAN SOFYAN", "noUjian": "TKA-2026-240453", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240544", "password": "Man1bgr#27", "fullName": "ZALFA KHAIRUNISA SALSABILA", "noUjian": "TKA-2026-240544", "sekolah": "MAN 1 BOGOR - XII 7"}, {"username": "240016", "password": "Man1bgr#27", "fullName": "AFDAL FARDHANA USMAN", "noUjian": "TKA-2026-240016", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240029", "password": "Man1bgr#27", "fullName": "AHMAT BEIDI", "noUjian": "TKA-2026-240029", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240032", "password": "Man1bgr#27", "fullName": "AISYAH AYNA ALTHAFUNNISA", "noUjian": "TKA-2026-240032", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240041", "password": "Man1bgr#27", "fullName": "ALFINA REYHANA PUTRI", "noUjian": "TKA-2026-240041", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240061", "password": "Man1bgr#27", "fullName": "AMANDA LUTFIAH SAFA", "noUjian": "TKA-2026-240061", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240065", "password": "Man1bgr#27", "fullName": "AMIR ZAKY SALI", "noUjian": "TKA-2026-240065", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240086", "password": "Man1bgr#27", "fullName": "ARKHAN NUR AUZAN", "noUjian": "TKA-2026-240086", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240097", "password": "Man1bgr#27", "fullName": "AULIA ZAHRA TALITA SUDRAJAT", "noUjian": "TKA-2026-240097", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240139", "password": "Man1bgr#27", "fullName": "DELA NISRINA PUTRI", "noUjian": "TKA-2026-240139", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240140", "password": "Man1bgr#27", "fullName": "DELON TAUFIQURROHMAN SUJADI", "noUjian": "TKA-2026-240140", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240145", "password": "Man1bgr#27", "fullName": "DHIYA ELORA RAMADHANI", "noUjian": "TKA-2026-240145", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240154", "password": "Man1bgr#27", "fullName": "DYANDRA AISHA SAFIRA", "noUjian": "TKA-2026-240154", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240161", "password": "Man1bgr#27", "fullName": "ELZA AZA SAFITRI", "noUjian": "TKA-2026-240161", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240163", "password": "Man1bgr#27", "fullName": "FABIAN MAGANTIS WIRANATAKUSUMAH", "noUjian": "TKA-2026-240163", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240173", "password": "Man1bgr#27", "fullName": "FAIZ HIRZI ALFREDO", "noUjian": "TKA-2026-240173", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240206", "password": "Man1bgr#27", "fullName": "HAFSAH KHAYZURONA MUSTHAFA", "noUjian": "TKA-2026-240206", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240213", "password": "Man1bgr#27", "fullName": "HANIFAH KHAIRUNNISA", "noUjian": "TKA-2026-240213", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240220", "password": "Man1bgr#27", "fullName": "HILWA LIYYANA SALIHUN", "noUjian": "TKA-2026-240220", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240236", "password": "Man1bgr#27", "fullName": "KAILA MALILA LIKO", "noUjian": "TKA-2026-240236", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240259", "password": "Man1bgr#27", "fullName": "KHALID ALIF YAFII", "noUjian": "TKA-2026-240259", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240263", "password": "Man1bgr#27", "fullName": "KHOLIVIA NUR QIROMAH", "noUjian": "TKA-2026-240263", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240272", "password": "Man1bgr#27", "fullName": "LITA OLIF RIANI", "noUjian": "TKA-2026-240272", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240282", "password": "Man1bgr#27", "fullName": "LYRA DWI PUTRI RAMA", "noUjian": "TKA-2026-240282", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240313", "password": "Man1bgr#27", "fullName": "M. ABROOR CHANIAGO", "noUjian": "TKA-2026-240313", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240288", "password": "Man1bgr#27", "fullName": "MARITZA AZKIA PUTRI", "noUjian": "TKA-2026-240288", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240303", "password": "Man1bgr#27", "fullName": "MUHAMAD FAIZ FADLIANSYAH", "noUjian": "TKA-2026-240303", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240335", "password": "Man1bgr#27", "fullName": "MUHAMMAD FAKHRI HUSAINI", "noUjian": "TKA-2026-240335", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240373", "password": "Man1bgr#27", "fullName": "MUTIA ASROAF NURAINI", "noUjian": "TKA-2026-240373", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240401", "password": "Man1bgr#27", "fullName": "NAZMI RATNA ADISTY", "noUjian": "TKA-2026-240401", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240419", "password": "Man1bgr#27", "fullName": "PASHA PUTRA WANDA", "noUjian": "TKA-2026-240419", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240461", "password": "Man1bgr#27", "fullName": "RIZQI FEBRIANO", "noUjian": "TKA-2026-240461", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240465", "password": "Man1bgr#27", "fullName": "SAFA MAULIDA PUTRI", "noUjian": "TKA-2026-240465", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240487", "password": "Man1bgr#27", "fullName": "SHAFA CHAIRUNISA", "noUjian": "TKA-2026-240487", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240495", "password": "Man1bgr#27", "fullName": "SITI KURNIA BAROKAH", "noUjian": "TKA-2026-240495", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240501", "password": "Man1bgr#27", "fullName": "SULAIMAN RAHMATULLAH RAWOE", "noUjian": "TKA-2026-240501", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240510", "password": "Man1bgr#27", "fullName": "SYIFA AMANDA SABAR", "noUjian": "TKA-2026-240510", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240513", "password": "Man1bgr#27", "fullName": "SYOFIA KHOERUNNISA", "noUjian": "TKA-2026-240513", "sekolah": "MAN 1 BOGOR - XII 8"}, {"username": "240019", "password": "Man1bgr#27", "fullName": "AFIFAH PRISKA YANTI", "noUjian": "TKA-2026-240019", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240027", "password": "Man1bgr#27", "fullName": "AHMAD MEKAH PRISMA", "noUjian": "TKA-2026-240027", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240046", "password": "Man1bgr#27", "fullName": "ALIF ZUHAIR", "noUjian": "TKA-2026-240046", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240047", "password": "Man1bgr#27", "fullName": "ALIFAH NUR FAUZIAH", "noUjian": "TKA-2026-240047", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240070", "password": "Man1bgr#27", "fullName": "ANDIKA FAJAR SUTYANTO", "noUjian": "TKA-2026-240070", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240074", "password": "Man1bgr#27", "fullName": "ANINDYA RAIHANA KHALILA", "noUjian": "TKA-2026-240074", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240117", "password": "Man1bgr#27", "fullName": "BIANCA AFIFAH KHAIRUNNISA", "noUjian": "TKA-2026-240117", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240135", "password": "Man1bgr#27", "fullName": "DARIS FADILROHMAN", "noUjian": "TKA-2026-240135", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240141", "password": "Man1bgr#27", "fullName": "DEVINA SAFIRA FAUZI", "noUjian": "TKA-2026-240141", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240148", "password": "Man1bgr#27", "fullName": "DITA PRADANA MAHARANI UTOMO", "noUjian": "TKA-2026-240148", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240158", "password": "Man1bgr#27", "fullName": "ELISA FITRI", "noUjian": "TKA-2026-240158", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240162", "password": "Man1bgr#27", "fullName": "ENPA SALIHAN WIRANATA", "noUjian": "TKA-2026-240162", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240171", "password": "Man1bgr#27", "fullName": "FAHRIZA KHADAFI", "noUjian": "TKA-2026-240171", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240560", "password": "Man1bgr#27", "fullName": "FAKHIRA MAWADDAH ALMAGHFIRAH", "noUjian": "TKA-2026-240560", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240174", "password": "Man1bgr#27", "fullName": "FAKHRI HAZWAN HAKIF", "noUjian": "TKA-2026-240174", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240210", "password": "Man1bgr#27", "fullName": "HANA NAILA AL FADHILLAH", "noUjian": "TKA-2026-240210", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240215", "password": "Man1bgr#27", "fullName": "HASNA NABILA PUTRI SESUNAN", "noUjian": "TKA-2026-240215", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240227", "password": "Man1bgr#27", "fullName": "INTAN BERLIANNA HERMAWAN", "noUjian": "TKA-2026-240227", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240256", "password": "Man1bgr#27", "fullName": "KEYSHA ANANDA HIFA", "noUjian": "TKA-2026-240256", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240268", "password": "Man1bgr#27", "fullName": "LASKAR ARUM YUMNA IZZAZI", "noUjian": "TKA-2026-240268", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240286", "password": "Man1bgr#27", "fullName": "MANIKHARA PUTRI MUSTOFA", "noUjian": "TKA-2026-240286", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240307", "password": "Man1bgr#27", "fullName": "MUHAMAD RIZKY ADITIYA", "noUjian": "TKA-2026-240307", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240318", "password": "Man1bgr#27", "fullName": "MUHAMMAD ALFI WIRATAMA", "noUjian": "TKA-2026-240318", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240326", "password": "Man1bgr#27", "fullName": "MUHAMMAD DZAKI FAIDLURRAHMAN", "noUjian": "TKA-2026-240326", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240365", "password": "Man1bgr#27", "fullName": "MUHAMMAD RIZQI ADJIE", "noUjian": "TKA-2026-240365", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240381", "password": "Man1bgr#27", "fullName": "NADYA TAUFIK UMAR NAHDI", "noUjian": "TKA-2026-240381", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240416", "password": "Man1bgr#27", "fullName": "NURUL IZZAH BIRRA", "noUjian": "TKA-2026-240416", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240444", "password": "Man1bgr#27", "fullName": "RAMA MAULIDAN AKBAR", "noUjian": "TKA-2026-240444", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240471", "password": "Man1bgr#27", "fullName": "SALMAN NURIKHSAN", "noUjian": "TKA-2026-240471", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240481", "password": "Man1bgr#27", "fullName": "SASKIA ALZAHRA", "noUjian": "TKA-2026-240481", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240494", "password": "Man1bgr#27", "fullName": "SITI AISYAH AZZAHRA", "noUjian": "TKA-2026-240494", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240504", "password": "Man1bgr#27", "fullName": "SYAHFA FEBRIAN", "noUjian": "TKA-2026-240504", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240512", "password": "Man1bgr#27", "fullName": "SYIFA FAUZIAH RAHMADANI", "noUjian": "TKA-2026-240512", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240516", "password": "Man1bgr#27", "fullName": "TAZKIYA KAMALIA AZZUHRA", "noUjian": "TKA-2026-240516", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240527", "password": "Man1bgr#27", "fullName": "VIRA ZAHIRA RAMLAN", "noUjian": "TKA-2026-240527", "sekolah": "MAN 1 BOGOR - XII 9"}, {"username": "240050", "password": "Man1bgr#27", "fullName": "ALISYA ANINDIA AZZAHRA", "noUjian": "TKA-2026-240050", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240064", "password": "Man1bgr#27", "fullName": "AMELIA SOLIHAT", "noUjian": "TKA-2026-240064", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240072", "password": "Man1bgr#27", "fullName": "ANGGIE PUSPITASARI", "noUjian": "TKA-2026-240072", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240079", "password": "Man1bgr#27", "fullName": "ANNISA SYAFA AZARIA", "noUjian": "TKA-2026-240079", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240114", "password": "Man1bgr#27", "fullName": "BALQIS ELISYA SAHDA", "noUjian": "TKA-2026-240114", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240147", "password": "Man1bgr#27", "fullName": "DIMAS WILDHAN NUGROHO", "noUjian": "TKA-2026-240147", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240169", "password": "Man1bgr#27", "fullName": "FAHLA ZAYSA ROMADHONA", "noUjian": "TKA-2026-240169", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240191", "password": "Man1bgr#27", "fullName": "FHANHIZA SYAHIRA", "noUjian": "TKA-2026-240191", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240192", "password": "Man1bgr#27", "fullName": "FINAVALENIA PUTRI SONDARA", "noUjian": "TKA-2026-240192", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240195", "password": "Man1bgr#27", "fullName": "GEMILANG SANGADJI BUMI", "noUjian": "TKA-2026-240195", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240203", "password": "Man1bgr#27", "fullName": "GIFTY SHAUM SUDRAJAT", "noUjian": "TKA-2026-240203", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240223", "password": "Man1bgr#27", "fullName": "HUMAIRA AZZAHRA", "noUjian": "TKA-2026-240223", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240226", "password": "Man1bgr#27", "fullName": "INDAH PERMATA", "noUjian": "TKA-2026-240226", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240240", "password": "Man1bgr#27", "fullName": "KANAHAYA PUTRI MEIDIANA DALIMUNTHE", "noUjian": "TKA-2026-240240", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240248", "password": "Man1bgr#27", "fullName": "KEILLA NURAZIZAH", "noUjian": "TKA-2026-240248", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240250", "password": "Man1bgr#27", "fullName": "KEISHA SHAFFA ALMIRA", "noUjian": "TKA-2026-240250", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240261", "password": "Man1bgr#27", "fullName": "KHANSA ASYKIRA TSAWABITA", "noUjian": "TKA-2026-240261", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240273", "password": "Man1bgr#27", "fullName": "LIYANA SABRINA", "noUjian": "TKA-2026-240273", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240274", "password": "Man1bgr#27", "fullName": "LOVITA IMTINAN TAMAM", "noUjian": "TKA-2026-240274", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240317", "password": "Man1bgr#27", "fullName": "MUHAMMAD AKMAL RAMADAN", "noUjian": "TKA-2026-240317", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240323", "password": "Man1bgr#27", "fullName": "MUHAMMAD ARIFUDDIN AKBAR", "noUjian": "TKA-2026-240323", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240347", "password": "Man1bgr#27", "fullName": "MUHAMMAD ILHAM RASYID", "noUjian": "TKA-2026-240347", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240369", "password": "Man1bgr#27", "fullName": "MUHAMMAD YUDHA PRATAMA", "noUjian": "TKA-2026-240369", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240370", "password": "Man1bgr#27", "fullName": "MUHAMMAD ZUHRYANDA HAQQAN MUBINA", "noUjian": "TKA-2026-240370", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240374", "password": "Man1bgr#27", "fullName": "MUTIA NUR HASSIRA", "noUjian": "TKA-2026-240374", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240396", "password": "Man1bgr#27", "fullName": "NAURA ZAHRA", "noUjian": "TKA-2026-240396", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240404", "password": "Man1bgr#27", "fullName": "NAZWA ALIFIA SARI", "noUjian": "TKA-2026-240404", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240440", "password": "Man1bgr#27", "fullName": "RAISA KAMILAH", "noUjian": "TKA-2026-240440", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240448", "password": "Man1bgr#27", "fullName": "RATU SYAKIRA RAMADHANIA", "noUjian": "TKA-2026-240448", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240449", "password": "Man1bgr#27", "fullName": "RAYA ALTHAFUNISA HADIANTA", "noUjian": "TKA-2026-240449", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240473", "password": "Man1bgr#27", "fullName": "SALSABILA KANSA", "noUjian": "TKA-2026-240473", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240493", "password": "Man1bgr#27", "fullName": "SILVANI AYU IRAWAN", "noUjian": "TKA-2026-240493", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240496", "password": "Man1bgr#27", "fullName": "SITI MUTMAINAH", "noUjian": "TKA-2026-240496", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240503", "password": "Man1bgr#27", "fullName": "SYABRINA TASYABELA", "noUjian": "TKA-2026-240503", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240521", "password": "Man1bgr#27", "fullName": "TIARA NAFISA HUSAINI", "noUjian": "TKA-2026-240521", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240539", "password": "Man1bgr#28", "fullName": "ZAHRA MAULIDYA", "noUjian": "TKA-2026-240539", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240546", "password": "Man1bgr#29", "fullName": "ZALFA TALITA RAMADHANI SUARDI", "noUjian": "TKA-2026-240546", "sekolah": "MAN 1 BOGOR - XII 10"}, {"username": "240003", "password": "Man1bgr#27", "fullName": "ABRARRAIS HALDISTO NUGROHO", "noUjian": "TKA-2026-240003", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240022", "password": "Man1bgr#27", "fullName": "AGISNALLAH NURUL FALAH", "noUjian": "TKA-2026-240022", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240040", "password": "Man1bgr#27", "fullName": "AL FATIH IBNU DAIYAN SUBRATA", "noUjian": "TKA-2026-240040", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240045", "password": "Man1bgr#27", "fullName": "ALIF FADHILLAH", "noUjian": "TKA-2026-240045", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240048", "password": "Man1bgr#27", "fullName": "ALIFIAH CEMPAKA PERMANA", "noUjian": "TKA-2026-240048", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240069", "password": "Man1bgr#27", "fullName": "ANDIKA DAVA FEBRIAN", "noUjian": "TKA-2026-240069", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240087", "password": "Man1bgr#27", "fullName": "ARMINA MUMTAHANAH", "noUjian": "TKA-2026-240087", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240103", "password": "Man1bgr#27", "fullName": "AYU KAYLA PUTRI NYERUPA", "noUjian": "TKA-2026-240103", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240106", "password": "Man1bgr#27", "fullName": "AZFAR GHAISAN", "noUjian": "TKA-2026-240106", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240108", "password": "Man1bgr#27", "fullName": "AZKIA MUTIARA SARISHA", "noUjian": "TKA-2026-240108", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240112", "password": "Man1bgr#27", "fullName": "AZZAHRA NUR FAJRI", "noUjian": "TKA-2026-240112", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240113", "password": "Man1bgr#27", "fullName": "BAARI NOER FAZLI", "noUjian": "TKA-2026-240113", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240124", "password": "Man1bgr#27", "fullName": "CARISSHA PUTRI APRILIA", "noUjian": "TKA-2026-240124", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240152", "password": "Man1bgr#27", "fullName": "DWI MARYANI", "noUjian": "TKA-2026-240152", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240178", "password": "Man1bgr#27", "fullName": "FARIZ ALI ALHAITHAM", "noUjian": "TKA-2026-240178", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240214", "password": "Man1bgr#27", "fullName": "HANNA SABRINA NADI", "noUjian": "TKA-2026-240214", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240242", "password": "Man1bgr#27", "fullName": "KAYLA AZZAHRA", "noUjian": "TKA-2026-240242", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240244", "password": "Man1bgr#27", "fullName": "KAYLA NAZWA MAULIDA", "noUjian": "TKA-2026-240244", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240265", "password": "Man1bgr#27", "fullName": "KIARA ANANDHITA SURAHMAN", "noUjian": "TKA-2026-240265", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240298", "password": "Man1bgr#27", "fullName": "MOHAMAD TSAQIF ALDHIRA", "noUjian": "TKA-2026-240298", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240302", "password": "Man1bgr#27", "fullName": "MUHAMAD ARGHA PRAMUDYA", "noUjian": "TKA-2026-240302", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240316", "password": "Man1bgr#27", "fullName": "MUHAMMAD AKHDAN ZULKARNAEN", "noUjian": "TKA-2026-240316", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240350", "password": "Man1bgr#27", "fullName": "MUHAMMAD KHOIRUL IHSAN", "noUjian": "TKA-2026-240350", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240359", "password": "Man1bgr#27", "fullName": "MUHAMMAD NUR IHSAN", "noUjian": "TKA-2026-240359", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240398", "password": "Man1bgr#27", "fullName": "NAYLA HUMAIRA", "noUjian": "TKA-2026-240398", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240409", "password": "Man1bgr#27", "fullName": "NISRINA CHAERUNNISA WAHYUDI", "noUjian": "TKA-2026-240409", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240428", "password": "Man1bgr#27", "fullName": "RADITYA AHMAD FAUZAN", "noUjian": "TKA-2026-240428", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240442", "password": "Man1bgr#27", "fullName": "RAISSA AZALIA MUHESA", "noUjian": "TKA-2026-240442", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240506", "password": "Man1bgr#27", "fullName": "SYAHLA QUROTU AINI LESTALUHU", "noUjian": "TKA-2026-240506", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240515", "password": "Man1bgr#27", "fullName": "TASAKA ALDIVE DANENDRA", "noUjian": "TKA-2026-240515", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240525", "password": "Man1bgr#27", "fullName": "VALENCIA MUTIARA ADIBA", "noUjian": "TKA-2026-240525", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240543", "password": "Man1bgr#27", "fullName": "ZAKI AHMAD", "noUjian": "TKA-2026-240543", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240550", "password": "Man1bgr#27", "fullName": "ZINEDINE CAESAR ARSSYI SABEKTI", "noUjian": "TKA-2026-240550", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240551", "password": "Man1bgr#27", "fullName": "ZULFA NURHIDAYAH", "noUjian": "TKA-2026-240551", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240552", "password": "Man1bgr#27", "fullName": "ZULFALINA SANTOSO", "noUjian": "TKA-2026-240552", "sekolah": "MAN 1 BOGOR - XII 11"}, {"username": "240002", "password": "Man1bgr#27", "fullName": "ABDUL HAKAM NUR ASHR", "noUjian": "TKA-2026-240002", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240025", "password": "Man1bgr#27", "fullName": "AHMAD GHIFFARI MUZAKKI DARMAWAN", "noUjian": "TKA-2026-240025", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240043", "password": "Man1bgr#27", "fullName": "ALI FAQIH ALHASANI", "noUjian": "TKA-2026-240043", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240057", "password": "Man1bgr#27", "fullName": "ALVI RAHMA FATIHAH", "noUjian": "TKA-2026-240057", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240076", "password": "Man1bgr#27", "fullName": "ANISA AMALIA", "noUjian": "TKA-2026-240076", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240109", "password": "Man1bgr#27", "fullName": "AZKIA TSALSABIELA", "noUjian": "TKA-2026-240109", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240165", "password": "Man1bgr#27", "fullName": "FADLAN RADITYA", "noUjian": "TKA-2026-240165", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240202", "password": "Man1bgr#27", "fullName": "GIBRAN MOHAMMAD ANWAR", "noUjian": "TKA-2026-240202", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240233", "password": "Man1bgr#27", "fullName": "JIHAN NUR AFIFAH", "noUjian": "TKA-2026-240233", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240559", "password": "Man1bgr#27", "fullName": "MUHAMAD NABHAN", "noUjian": "TKA-2026-240559", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240308", "password": "Man1bgr#27", "fullName": "MUHAMAD SAYIDIKA HAMDI", "noUjian": "TKA-2026-240308", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240329", "password": "Man1bgr#27", "fullName": "MUHAMMAD FACHRI ISMAIL", "noUjian": "TKA-2026-240329", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240343", "password": "Man1bgr#27", "fullName": "MUHAMMAD HABIBI FARREL PRATAMA", "noUjian": "TKA-2026-240343", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240353", "password": "Man1bgr#27", "fullName": "MUHAMMAD NAUFAL BIMANTORO", "noUjian": "TKA-2026-240353", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240356", "password": "Man1bgr#27", "fullName": "MUHAMMAD NAZRIEL ILHAMI", "noUjian": "TKA-2026-240356", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240364", "password": "Man1bgr#27", "fullName": "MUHAMMAD RIZKI RIFALDI", "noUjian": "TKA-2026-240364", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240420", "password": "Man1bgr#27", "fullName": "PRAJA RAMADANI", "noUjian": "TKA-2026-240420", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240431", "password": "Man1bgr#27", "fullName": "RAFFAEL WISNU PRAMBUDI", "noUjian": "TKA-2026-240431", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240451", "password": "Man1bgr#27", "fullName": "RAYSAZKIA NURANIA FADHILLA", "noUjian": "TKA-2026-240451", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240454", "password": "Man1bgr#27", "fullName": "REIFANDRA ALGHANA LINGGAR", "noUjian": "TKA-2026-240454", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240458", "password": "Man1bgr#27", "fullName": "RIFQI RISQULLAH", "noUjian": "TKA-2026-240458", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240477", "password": "Man1bgr#27", "fullName": "SALWA AULIA NITA LUBIS", "noUjian": "TKA-2026-240477", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240502", "password": "Man1bgr#27", "fullName": "SURYA DARMA HANDRIANA", "noUjian": "TKA-2026-240502", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "250528", "password": "Man1bgr#27", "fullName": "SYAKIRA KANAYA PUTRI", "noUjian": "TKA-2026-250528", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240517", "password": "Man1bgr#27", "fullName": "TAZKIYATUL AULIA NURFADILLAH", "noUjian": "TKA-2026-240517", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240524", "password": "Man1bgr#27", "fullName": "UKHTI FARIDA SALIMAH", "noUjian": "TKA-2026-240524", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "250533", "password": "Man1bgr#27", "fullName": "ALTHAF ADINAA ARYASETIA", "noUjian": "TKA-2026-250533", "sekolah": "MAN 1 BOGOR - XII 12"}, {"username": "240033", "password": "Man1bgr#27", "fullName": "AISYAH JASMINE ABYRA", "noUjian": "TKA-2026-240033", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240062", "password": "Man1bgr#27", "fullName": "AMANDA NAZWA ZAHRA WIDIARAHMI", "noUjian": "TKA-2026-240062", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240555", "password": "Man1bgr#27", "fullName": "AMEERA ZAKIYAH MARDHIYAH", "noUjian": "TKA-2026-240555", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240100", "password": "Man1bgr#27", "fullName": "AUREL NUR AVISA DEWI", "noUjian": "TKA-2026-240100", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240115", "password": "Man1bgr#27", "fullName": "BALQISA ISLAMI FAHMA", "noUjian": "TKA-2026-240115", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240122", "password": "Man1bgr#27", "fullName": "BUNGA AZALEA ANNISA SUGIARTO", "noUjian": "TKA-2026-240122", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240129", "password": "Man1bgr#27", "fullName": "CHOIRUNISAH DEVI", "noUjian": "TKA-2026-240129", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240149", "password": "Man1bgr#27", "fullName": "DIVA ATIQAH CAHYANA SALSABILA", "noUjian": "TKA-2026-240149", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240172", "password": "Man1bgr#27", "fullName": "FAIRUZ HISYAM", "noUjian": "TKA-2026-240172", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240184A", "password": "Man1bgr#27", "fullName": "FATIMAH AZZAHRA", "noUjian": "TKA-2026-240184A", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240186", "password": "Man1bgr#27", "fullName": "FATIMAH SARI", "noUjian": "TKA-2026-240186", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240218", "password": "Man1bgr#27", "fullName": "HEESHAM RAHMADIAR ASHKINEDY", "noUjian": "TKA-2026-240218", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240222", "password": "Man1bgr#27", "fullName": "HUMAIRA AHMAD", "noUjian": "TKA-2026-240222", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240232", "password": "Man1bgr#27", "fullName": "JIBRIL ISHANUDIN ALFAQIH", "noUjian": "TKA-2026-240232", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240258", "password": "Man1bgr#27", "fullName": "KHAIRUNISA NAZIFATUL QULBI DYTRI JULRIA", "noUjian": "TKA-2026-240258", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240271", "password": "Man1bgr#27", "fullName": "LINTANG ARAFAH YUDANTA", "noUjian": "TKA-2026-240271", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "250530", "password": "Man1bgr#27", "fullName": "M. HAZIQ AKBAR", "noUjian": "TKA-2026-250530", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240289", "password": "Man1bgr#27", "fullName": "MARSAA MUSYAFFA TRIANDINI", "noUjian": "TKA-2026-240289", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240304", "password": "Man1bgr#27", "fullName": "MUHAMAD FAUZAN AHYAR", "noUjian": "TKA-2026-240304", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240309", "password": "Man1bgr#27", "fullName": "MUHAMAD TYAS SATRIA WIKARTA", "noUjian": "TKA-2026-240309", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240336", "password": "Man1bgr#27", "fullName": "MUHAMMAD FARREL ADITYA LAKSONO", "noUjian": "TKA-2026-240336", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240342", "password": "Man1bgr#27", "fullName": "MUHAMMAD GHAISAN ALTAF", "noUjian": "TKA-2026-240342", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240391", "password": "Man1bgr#27", "fullName": "NATAYA JENIA KUSNADI", "noUjian": "TKA-2026-240391", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240462", "password": "Man1bgr#27", "fullName": "ROUFAN FAIZ PRATAMA", "noUjian": "TKA-2026-240462", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240464", "password": "Man1bgr#27", "fullName": "SABRIA MAULIDA BERLIAN", "noUjian": "TKA-2026-240464", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240470", "password": "Man1bgr#27", "fullName": "SALMA NURUL IZZA", "noUjian": "TKA-2026-240470", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "250529", "password": "Man1bgr#27", "fullName": "SALMA SALSABILA", "noUjian": "TKA-2026-250529", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240483", "password": "Man1bgr#27", "fullName": "SELA AULIA", "noUjian": "TKA-2026-240483", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240498", "password": "Man1bgr#27", "fullName": "SITI NURBAITI LUGINA RAHMANIA", "noUjian": "TKA-2026-240498", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240532", "password": "Man1bgr#27", "fullName": "XENA AISYAH NADIA", "noUjian": "TKA-2026-240532", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240534", "password": "Man1bgr#27", "fullName": "YASMIN FEBRI YANTI", "noUjian": "TKA-2026-240534", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "260649", "password": "Man1bgr#27", "fullName": "Yoga putra anugrah", "noUjian": "TKA-2026-260649", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "260652", "password": "Man1bgr#27", "fullName": "ANNISA DWI FATONAH", "noUjian": "TKA-2026-260652", "sekolah": "MAN 1 BOGOR - XII 13"}, {"username": "240021", "password": "Man1bgr#27", "fullName": "AGIS AULIA KHAERUDIN", "noUjian": "TKA-2026-240021", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240052", "password": "Man1bgr#27", "fullName": "ALMIRA NUR ALI", "noUjian": "TKA-2026-240052", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240066", "password": "Man1bgr#27", "fullName": "AMIRA MADINA PUTRI", "noUjian": "TKA-2026-240066", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240092", "password": "Man1bgr#27", "fullName": "ATIQAH FAIHA NAVAZADENUCIE", "noUjian": "TKA-2026-240092", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240095", "password": "Man1bgr#27", "fullName": "AULIA FARHANA RISNA", "noUjian": "TKA-2026-240095", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240166", "password": "Man1bgr#27", "fullName": "FADLIL ADZIM", "noUjian": "TKA-2026-240166", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240180", "password": "Man1bgr#27", "fullName": "FATHAN BARI PRATAMA", "noUjian": "TKA-2026-240180", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240184B", "password": "Man1bgr#27", "fullName": "FATIMAH AZZAHRA", "noUjian": "TKA-2026-240184B", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240197", "password": "Man1bgr#27", "fullName": "GHAISAN RANU REFAYA", "noUjian": "TKA-2026-240197", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240216", "password": "Man1bgr#27", "fullName": "HASNA SHOLIHAH", "noUjian": "TKA-2026-240216", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240230", "password": "Man1bgr#27", "fullName": "JASMINE MAULIDIA", "noUjian": "TKA-2026-240230", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240245", "password": "Man1bgr#27", "fullName": "KAYLA WIRDIANI SULAEMAN", "noUjian": "TKA-2026-240245", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240264", "password": "Man1bgr#27", "fullName": "KHONSA ALMASHUUNAH ZEIN", "noUjian": "TKA-2026-240264", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240275", "password": "Man1bgr#27", "fullName": "LULU FEBRIYANTI", "noUjian": "TKA-2026-240275", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240291", "password": "Man1bgr#27", "fullName": "MAULIDA NURUL BAYTI", "noUjian": "TKA-2026-240291", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "250527", "password": "Man1bgr#27", "fullName": "MEIDYTA PERMATA", "noUjian": "TKA-2026-250527", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240295", "password": "Man1bgr#27", "fullName": "MIFTAHUN NAJAH", "noUjian": "TKA-2026-240295", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240301", "password": "Man1bgr#27", "fullName": "MUBARAK ALFAIZ SHAFRIZALDUHA", "noUjian": "TKA-2026-240301", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "250532", "password": "Man1bgr#27", "fullName": "Muhamad Azkar Azkiya", "noUjian": "TKA-2026-250532", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240324", "password": "Man1bgr#27", "fullName": "MUHAMMAD BILLAL BUDIMAN", "noUjian": "TKA-2026-240324", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240337", "password": "Man1bgr#27", "fullName": "MUHAMMAD FARREL FAJRI", "noUjian": "TKA-2026-240337", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240349", "password": "Man1bgr#27", "fullName": "MUHAMMAD KHAIRUL ANAM", "noUjian": "TKA-2026-240349", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240366", "password": "Man1bgr#27", "fullName": "MUHAMMAD RIZQI ATH THARIQ", "noUjian": "TKA-2026-240366", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240397", "password": "Man1bgr#27", "fullName": "NAYLA APRILIA MU'MIN", "noUjian": "TKA-2026-240397", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240423", "password": "Man1bgr#27", "fullName": "PUTRI RAHMA KAMILA", "noUjian": "TKA-2026-240423", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240452", "password": "Man1bgr#27", "fullName": "RAYYA MAHIRAH MUHSIN", "noUjian": "TKA-2026-240452", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "250531", "password": "Man1bgr#27", "fullName": "Reeva Auliya Firdaus", "noUjian": "TKA-2026-250531", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240457", "password": "Man1bgr#27", "fullName": "RIFAYA NAILAH", "noUjian": "TKA-2026-240457", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240485", "password": "Man1bgr#27", "fullName": "SHABYTA ASHILA ZHAHIRA", "noUjian": "TKA-2026-240485", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240529", "password": "Man1bgr#27", "fullName": "WAFA AZIZAH", "noUjian": "TKA-2026-240529", "sekolah": "MAN 1 BOGOR - XII 14"}, {"username": "240038", "password": "Man1bgr#27", "fullName": "AL FAIZ PRADAGUSTI", "noUjian": "TKA-2026-240038", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240054", "password": "Man1bgr#27", "fullName": "ALPINE REYNOLD SETIAWAN", "noUjian": "TKA-2026-240054", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240073", "password": "Man1bgr#27", "fullName": "ANGGUN ATIKA SARI", "noUjian": "TKA-2026-240073", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240082", "password": "Man1bgr#27", "fullName": "AQQILA PUTRI DELINA", "noUjian": "TKA-2026-240082", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240093", "password": "Man1bgr#27", "fullName": "AUDRIC DAVIN GAUTAMA", "noUjian": "TKA-2026-240093", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240102", "password": "Man1bgr#27", "fullName": "AYSKA MAULIDA NUR VINSYAH", "noUjian": "TKA-2026-240102", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240131", "password": "Man1bgr#27", "fullName": "CINZYO IBRAHIM BASSANY", "noUjian": "TKA-2026-240131", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240175", "password": "Man1bgr#27", "fullName": "FAMYA JIAN DANANDIKO", "noUjian": "TKA-2026-240175", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240196", "password": "Man1bgr#27", "fullName": "GHAIDA RAIHANAH", "noUjian": "TKA-2026-240196", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240201", "password": "Man1bgr#27", "fullName": "GIANINNA AQILAH AZIZAH IZZATY HERMAN", "noUjian": "TKA-2026-240201", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240207", "password": "Man1bgr#27", "fullName": "HAFSHAH", "noUjian": "TKA-2026-240207", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240225", "password": "Man1bgr#27", "fullName": "INASYA HAMDI FAJARINA", "noUjian": "TKA-2026-240225", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240269", "password": "Man1bgr#27", "fullName": "LATIFAH ISNAINI", "noUjian": "TKA-2026-240269", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "250526", "password": "Man1bgr#27", "fullName": "M. HAZIQ KAMIL", "noUjian": "TKA-2026-250526", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240284", "password": "Man1bgr#27", "fullName": "MAHARAMITA AQILA AMANY", "noUjian": "TKA-2026-240284", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240292", "password": "Man1bgr#27", "fullName": "MAULIDYA AMRINA HUSNA", "noUjian": "TKA-2026-240292", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240296", "password": "Man1bgr#27", "fullName": "MIFTANUR HUSNA SUTOMO", "noUjian": "TKA-2026-240296", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240305", "password": "Man1bgr#27", "fullName": "MUHAMAD IRSYAD RUSNANDI", "noUjian": "TKA-2026-240305", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240334", "password": "Man1bgr#27", "fullName": "MUHAMMAD FAIZ KAMIL", "noUjian": "TKA-2026-240334", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240372", "password": "Man1bgr#27", "fullName": "MURFID KHANIF WAHYUDHOYONO", "noUjian": "TKA-2026-240372", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240385", "password": "Man1bgr#27", "fullName": "NAJLA HUMAIRA AREYZI", "noUjian": "TKA-2026-240385", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240390", "password": "Man1bgr#27", "fullName": "NATASYA ADINDA PRATIWI", "noUjian": "TKA-2026-240390", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240399", "password": "Man1bgr#27", "fullName": "NAYYARA AYU FITRI AISYA", "noUjian": "TKA-2026-240399", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240441", "password": "Man1bgr#27", "fullName": "RAISA TSABITA NAVISA", "noUjian": "TKA-2026-240441", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240447", "password": "Man1bgr#27", "fullName": "RATU NISA UL MARHAMAH", "noUjian": "TKA-2026-240447", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240456", "password": "Man1bgr#27", "fullName": "RIFALINA AZANI MUFFARIHANA", "noUjian": "TKA-2026-240456", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240489", "password": "Man1bgr#27", "fullName": "SHIREEN AULIA PUTRI", "noUjian": "TKA-2026-240489", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240514", "password": "Man1bgr#27", "fullName": "TALITA ZALFA", "noUjian": "TKA-2026-240514", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240530", "password": "Man1bgr#27", "fullName": "WENING KENCANA RAA'IDAH SIWI", "noUjian": "TKA-2026-240530", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240547", "password": "Man1bgr#27", "fullName": "ZANETTA ELSYAFRINA", "noUjian": "TKA-2026-240547", "sekolah": "MAN 1 BOGOR - XII 15"}, {"username": "240011", "password": "Man1bgr#27", "fullName": "ADINDA RASYA QANITA", "noUjian": "TKA-2026-240011", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240017", "password": "Man1bgr#27", "fullName": "AFIF DASRIN", "noUjian": "TKA-2026-240017", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240026", "password": "Man1bgr#27", "fullName": "AHMAD HUZEIN LUBIS", "noUjian": "TKA-2026-240026", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240051", "password": "Man1bgr#27", "fullName": "ALIYA ERSA RIYANI", "noUjian": "TKA-2026-240051", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240071", "password": "Man1bgr#27", "fullName": "ANDRIANSYAH", "noUjian": "TKA-2026-240071", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240081", "password": "Man1bgr#27", "fullName": "ANUGRAH BIAN PAMUNGKAS", "noUjian": "TKA-2026-240081", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240107", "password": "Man1bgr#27", "fullName": "AZKA ADRIAN TAULANI", "noUjian": "TKA-2026-240107", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240142", "password": "Man1bgr#27", "fullName": "DHEA ALTHAFUNNISA", "noUjian": "TKA-2026-240142", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240177", "password": "Man1bgr#27", "fullName": "FARIDA PERMATA JUNIAR", "noUjian": "TKA-2026-240177", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240179", "password": "Man1bgr#27", "fullName": "FARREL RAMADHAN PUTRA BARUS", "noUjian": "TKA-2026-240179", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240194", "password": "Man1bgr#27", "fullName": "GADIZA FAIRA AZARINE", "noUjian": "TKA-2026-240194", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240229", "password": "Man1bgr#27", "fullName": "ISNAINI INTAN ARIFIN", "noUjian": "TKA-2026-240229", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240290", "password": "Man1bgr#27", "fullName": "MARSHA DAVINA", "noUjian": "TKA-2026-240290", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240300", "password": "Man1bgr#27", "fullName": "MOHAMMAD YAQI AFNANY AKBAR", "noUjian": "TKA-2026-240300", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240328", "password": "Man1bgr#27", "fullName": "MUHAMAD FACHRI ALFARIZI", "noUjian": "TKA-2026-240328", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240341", "password": "Man1bgr#27", "fullName": "MUHAMMAD FIKRI ADDINRUMI SITANGGANG", "noUjian": "TKA-2026-240341", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240345", "password": "Man1bgr#27", "fullName": "MUHAMMAD IKHSAN ARIEFIAN", "noUjian": "TKA-2026-240345", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240346", "password": "Man1bgr#27", "fullName": "MUHAMMAD IKRAM SHADIQO", "noUjian": "TKA-2026-240346", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240360", "password": "Man1bgr#27", "fullName": "MUHAMMAD RAFI HAMDANI", "noUjian": "TKA-2026-240360", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240380", "password": "Man1bgr#27", "fullName": "NADYA SHAFWAH", "noUjian": "TKA-2026-240380", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240387", "password": "Man1bgr#27", "fullName": "NAOMI RAHMANY RENATA", "noUjian": "TKA-2026-240387", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240411", "password": "Man1bgr#27", "fullName": "NOVRANDI PRAYUDA ALVINO", "noUjian": "TKA-2026-240411", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240418", "password": "Man1bgr#27", "fullName": "PARISYA GHIFARI ARAYA", "noUjian": "TKA-2026-240418", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240433", "password": "Man1bgr#27", "fullName": "RAFIF AR-RASYAD", "noUjian": "TKA-2026-240433", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240445", "password": "Man1bgr#27", "fullName": "RAMDHAN AHMAD ILMISANI", "noUjian": "TKA-2026-240445", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240463", "password": "Man1bgr#27", "fullName": "RYHHADATUL ARKAN PADMAWIJAYA", "noUjian": "TKA-2026-240463", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240509", "password": "Man1bgr#27", "fullName": "SYAUQI AMMAR SOPANDES", "noUjian": "TKA-2026-240509", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240526", "password": "Man1bgr#27", "fullName": "VERDA FIORENZA PRASETYO", "noUjian": "TKA-2026-240526", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240528", "password": "Man1bgr#27", "fullName": "WA ODE RAISHA MAZAYA", "noUjian": "TKA-2026-240528", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "240533", "password": "Man1bgr#27", "fullName": "YAHYA HASAN", "noUjian": "TKA-2026-240533", "sekolah": "MAN 1 BOGOR - XII 16"}, {"username": "cadangan01", "password": "cadangan01#tka", "fullName": "Akun Cadangan 01", "noUjian": "TKA-2026-CADANGAN01", "sekolah": "CADANGAN - UJICOBA"}, {"username": "cadangan02", "password": "cadangan02#tka", "fullName": "Akun Cadangan 02", "noUjian": "TKA-2026-CADANGAN02", "sekolah": "CADANGAN - UJICOBA"}, {"username": "cadangan03", "password": "cadangan03#tka", "fullName": "Akun Cadangan 03", "noUjian": "TKA-2026-CADANGAN03", "sekolah": "CADANGAN - UJICOBA"}, {"username": "cadangan04", "password": "cadangan04#tka", "fullName": "Akun Cadangan 04", "noUjian": "TKA-2026-CADANGAN04", "sekolah": "CADANGAN - UJICOBA"}, {"username": "cadangan05", "password": "cadangan05#tka", "fullName": "Akun Cadangan 05", "noUjian": "TKA-2026-CADANGAN05", "sekolah": "CADANGAN - UJICOBA"}, {"username": "cadangan06", "password": "cadangan06#tka", "fullName": "Akun Cadangan 06", "noUjian": "TKA-2026-CADANGAN06", "sekolah": "CADANGAN - UJICOBA"}, {"username": "cadangan07", "password": "cadangan07#tka", "fullName": "Akun Cadangan 07", "noUjian": "TKA-2026-CADANGAN07", "sekolah": "CADANGAN - UJICOBA"}, {"username": "cadangan08", "password": "cadangan08#tka", "fullName": "Akun Cadangan 08", "noUjian": "TKA-2026-CADANGAN08", "sekolah": "CADANGAN - UJICOBA"}, {"username": "cadangan09", "password": "cadangan09#tka", "fullName": "Akun Cadangan 09", "noUjian": "TKA-2026-CADANGAN09", "sekolah": "CADANGAN - UJICOBA"}, {"username": "cadangan10", "password": "cadangan10#tka", "fullName": "Akun Cadangan 10", "noUjian": "TKA-2026-CADANGAN10", "sekolah": "CADANGAN - UJICOBA"}];
+
+const input = document.getElementById('searchInput');
+const clearBtn = document.getElementById('clearBtn');
+const resultsEl = document.getElementById('results');
+const hintText = document.getElementById('hintText');
+
+function normalize(s){
+  return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+}
+
+function escapeHtml(s){
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function highlight(text, q){
+  if(!q) return escapeHtml(text);
+  const norm = normalize(text);
+  const idx = norm.indexOf(q);
+  if(idx === -1) return escapeHtml(text);
+  return escapeHtml(text.slice(0, idx)) +
+    '<mark style="background:#f6ecd4;color:inherit;border-radius:3px;">' +
+    escapeHtml(text.slice(idx, idx + q.length)) +
+    '</mark>' + escapeHtml(text.slice(idx + q.length));
+}
+
+function fieldRow(label, value, copyKey){
+  return `
+    <div class="cek-field">
+      <div class="cek-field-label">${label}</div>
+      <div class="cek-field-row">
+        <div class="cek-field-value">${escapeHtml(value)}</div>
+        <button class="cek-copy-btn" data-copy="${escapeHtml(value)}" data-key="${copyKey}">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Salin
+        </button>
+      </div>
+    </div>`;
+}
+
+function cardHtml(p, q){
+  const isCadangan = p.sekolah.startsWith('CADANGAN');
+  const allText = `Nama: ${p.fullName}\nUsername: ${p.username}\nPassword: ${p.password}\nNo. Ujian: ${p.noUjian}\nSekolah: ${p.sekolah}`;
+  return `
+    <div class="cek-card">
+      <div class="cek-card-head">
+        <div>
+          <div class="cek-card-name">${highlight(p.fullName, q)}</div>
+          <div class="cek-card-school">${escapeHtml(p.sekolah)}</div>
+        </div>
+        <span class="cek-badge ${isCadangan ? 'cad' : ''}">${isCadangan ? 'Cadangan' : 'Peserta'}</span>
+      </div>
+      <div class="cek-field-grid">
+        ${fieldRow('Username', p.username, 'u')}
+        ${fieldRow('Password', p.password, 'p')}
+        <div class="cek-field full">
+          <div class="cek-field-label">Nomor Ujian</div>
+          <div class="cek-field-row">
+            <div class="cek-field-value">${escapeHtml(p.noUjian)}</div>
+            <button class="cek-copy-btn" data-copy="${escapeHtml(p.noUjian)}" data-key="n">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Salin
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="cek-copy-all-row">
+        <button class="cek-copy-all-btn" data-copyall="${escapeHtml(allText)}">Salin semua data</button>
+      </div>
+    </div>`;
+}
+
+async function copyText(text, btn, activeLabel){
+  try{
+    await navigator.clipboard.writeText(text);
+  }catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+  }
+  const original = btn.innerHTML;
+  btn.classList.add('copied');
+  btn.innerHTML = activeLabel;
+  setTimeout(() => {
+    btn.classList.remove('copied');
+    btn.innerHTML = original;
+  }, 1400);
+}
+
+resultsEl.addEventListener('click', (e) => {
+  const copyBtn = e.target.closest('.cek-copy-btn');
+  if(copyBtn){
+    copyText(copyBtn.dataset.copy, copyBtn, '✓ Tersalin');
+    return;
+  }
+  const copyAllBtn = e.target.closest('.cek-copy-all-btn');
+  if(copyAllBtn){
+    copyText(copyAllBtn.dataset.copyall, copyAllBtn, '✓ Tersalin');
+  }
+});
+
+function render(){
+  const raw = input.value.trim();
+  clearBtn.classList.toggle('show', raw.length > 0);
+
+  if(raw.length === 0){
+    hintText.style.display = 'block';
+    hintText.textContent = 'Minimal 3 huruf agar hasil lebih akurat';
+    resultsEl.innerHTML = '';
+    return;
+  }
+
+  if(raw.length < 3){
+    hintText.style.display = 'block';
+    hintText.textContent = `Ketik ${3 - raw.length} huruf lagi…`;
+    resultsEl.innerHTML = '';
+    return;
+  }
+
+  hintText.style.display = 'none';
+  const q = normalize(raw);
+  const matches = PESERTA.filter(p => normalize(p.fullName).includes(q));
+
+  if(matches.length === 0){
+    resultsEl.innerHTML = `<div class="cek-status">Tidak ditemukan peserta dengan nama <strong>"${escapeHtml(raw)}"</strong>.<br>Coba ketik sebagian nama depan atau nama belakang saja.</div>`;
+    return;
+  }
+
+  const shown = matches.slice(0, 25);
+  let html = `<div class="cek-count">${matches.length} peserta ditemukan${matches.length > 25 ? ' · menampilkan 25 teratas, perjelas pencarian untuk mempersempit' : ''}</div>`;
+  html += shown.map(p => cardHtml(p, q)).join('');
+  resultsEl.innerHTML = html;
+}
+
+input.addEventListener('input', render);
+clearBtn.addEventListener('click', () => {
+  input.value = '';
+  input.focus();
+  render();
+});
+
+render();
+
+</script>
+
+</body>
+</html>
